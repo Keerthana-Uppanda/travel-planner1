@@ -1,0 +1,1588 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WanderLuxe – Luxury Travel Redefined</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+<script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<style>
+:root{--p1:#8b5cf6;--p2:#7c3aed;--p3:#6d28d9;--sec:#ec4899;--gold:#fbbf24;--emerald:#10b981;--bg:#fafaf9;--bg2:#f3f0ff;--bg3:#ede9fe;--card:#ffffff;--card2:#f8f7ff;--text:#12101e;--text2:#3d3660;--text3:#7c72a8;--border:#e4dfff;--border2:#d1c9ff;--nav-bg:rgba(250,250,249,0.94);--shadow:rgba(139,92,246,0.12);--shadow2:rgba(139,92,246,0.22);--modal-bg:rgba(18,16,30,0.72);--t:all 0.28s cubic-bezier(.4,0,.2,1);}
+[data-theme=dark]{--bg:#0c0a1e;--bg2:#130f2a;--bg3:#1c1638;--card:#181430;--card2:#201b3a;--text:#f0ecff;--text2:#c4bbf0;--text3:#7e73b8;--border:#2a2250;--border2:#362d6a;--nav-bg:rgba(12,10,30,0.96);--shadow:rgba(139,92,246,0.2);--shadow2:rgba(139,92,246,0.35);--modal-bg:rgba(6,4,18,0.82);}
+*{margin:0;padding:0;box-sizing:border-box;}html{scroll-behavior:smooth;}
+body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--text);transition:background .3s,color .3s;overflow-x:hidden;}
+::-webkit-scrollbar{width:5px;}::-webkit-scrollbar-track{background:var(--bg2);}::-webkit-scrollbar-thumb{background:var(--p1);border-radius:3px;}
+img{display:block;}button{font-family:'Poppins',sans-serif;cursor:pointer;}input,select,textarea{font-family:'Poppins',sans-serif;}
+
+/* LAYOUT */
+.page{padding-top:68px;min-height:100vh;}.container{max-width:1180px;margin:0 auto;padding:0 1.5rem;}.section{padding:4.5rem 0;}.section-alt{background:var(--bg2);}
+
+/* NAVBAR */
+.navbar{position:fixed;top:0;left:0;right:0;height:68px;z-index:900;background:var(--nav-bg);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border-bottom:1px solid var(--border);display:flex;align-items:center;padding:0 1.5rem;gap:1rem;box-shadow:0 2px 24px var(--shadow);}
+.nav-logo{display:flex;align-items:center;gap:.45rem;cursor:pointer;text-decoration:none;flex-shrink:0;}
+.nav-logo-icon{font-size:1.3rem;}
+.nav-logo-text{font-family:'Cormorant Garamond',serif;font-size:1.55rem;font-weight:700;background:linear-gradient(135deg,var(--p1),var(--sec));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+.nav-links{display:flex;gap:.1rem;flex:1;justify-content:center;}
+.nav-link{padding:.42rem .85rem;border-radius:8px;border:none;background:none;font-size:.82rem;font-weight:500;color:var(--text3);transition:var(--t);white-space:nowrap;}
+.nav-link:hover{background:var(--bg3);color:var(--p1);}.nav-link.active{background:var(--bg3);color:var(--p1);font-weight:700;}
+.nav-right{display:flex;align-items:center;gap:.6rem;flex-shrink:0;}
+.user-pill{display:flex;align-items:center;gap:.5rem;padding:.32rem .85rem;background:var(--bg3);border-radius:20px;font-size:.8rem;font-weight:600;color:var(--p1);}
+.user-av{width:26px;height:26px;border-radius:50%;background:linear-gradient(135deg,var(--p1),var(--sec));display:flex;align-items:center;justify-content:center;color:#fff;font-size:.72rem;font-weight:800;}
+.icon-btn{width:36px;height:36px;border-radius:50%;border:1.5px solid var(--border);background:var(--card);display:flex;align-items:center;justify-content:center;font-size:.95rem;transition:var(--t);flex-shrink:0;}
+.icon-btn:hover{border-color:var(--p1);transform:rotate(20deg) scale(1.08);}
+.logout-btn{padding:.35rem .9rem;border-radius:8px;border:1.5px solid var(--border);background:none;font-size:.78rem;font-weight:600;color:var(--text3);transition:var(--t);}
+.logout-btn:hover{border-color:#f43f5e;color:#f43f5e;}
+.ham{display:none;flex-direction:column;gap:4px;padding:.45rem;background:none;border:none;}
+.ham span{width:21px;height:2px;background:var(--text);border-radius:2px;transition:var(--t);display:block;}
+.mob-menu{display:none;position:fixed;top:68px;left:0;right:0;background:var(--nav-bg);border-bottom:1px solid var(--border);backdrop-filter:blur(18px);padding:1rem 1.5rem;z-index:899;flex-direction:column;gap:.4rem;}
+.mob-menu.open{display:flex;}
+
+/* BUTTONS */
+.btn{padding:.65rem 1.5rem;border-radius:10px;border:none;font-size:.88rem;font-weight:700;transition:var(--t);display:inline-flex;align-items:center;gap:.4rem;}
+.btn-primary{background:linear-gradient(135deg,var(--p1),var(--p2));color:#fff;box-shadow:0 4px 18px rgba(139,92,246,.3);}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(139,92,246,.42);}
+.btn-primary:disabled{opacity:.6;cursor:not-allowed;transform:none;}
+.btn-outline{background:none;border:1.5px solid var(--border2);color:var(--text2);}
+.btn-outline:hover{border-color:var(--p1);color:var(--p1);}
+.btn-gold{background:linear-gradient(135deg,var(--gold),#f59e0b);color:#1a1000;}
+.btn-sm{padding:.4rem 1rem;font-size:.78rem;border-radius:8px;}
+
+/* SECTION */
+.sec-tag{display:inline-block;padding:.28rem .9rem;background:linear-gradient(135deg,rgba(139,92,246,.12),rgba(236,72,153,.1));border:1px solid rgba(139,92,246,.22);border-radius:20px;color:var(--p1);font-size:.7rem;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;margin-bottom:.7rem;}
+.sec-title{font-family:'Cormorant Garamond',serif;font-size:clamp(1.9rem,4vw,2.9rem);font-weight:700;color:var(--text);line-height:1.2;margin-bottom:.65rem;}
+.sec-sub{color:var(--text3);font-size:.93rem;line-height:1.75;max-width:520px;}
+.sec-header{text-align:center;margin-bottom:2.8rem;}.sec-header .sec-sub{margin:0 auto;}
+
+/* LOGIN */
+.login-wrap{min-height:100vh;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#0c0a1e 0%,#1c1538 50%,#2d1b69 100%);position:relative;overflow:hidden;padding:1rem;}
+.login-orb{position:absolute;border-radius:50%;filter:blur(90px);pointer-events:none;}
+.login-card{background:rgba(255,255,255,.055);backdrop-filter:blur(28px);border:1px solid rgba(255,255,255,.1);border-radius:24px;padding:2.5rem 2.2rem;width:100%;max-width:440px;position:relative;z-index:1;animation:fadeUp .5s ease;}
+.login-logo{text-align:center;margin-bottom:1.8rem;}
+.login-logo-icon{font-size:2.8rem;line-height:1;}
+.login-logo h1{font-family:'Cormorant Garamond',serif;font-size:2.1rem;font-weight:700;background:linear-gradient(135deg,#a78bfa,#ec4899);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin:.3rem 0 .2rem;}
+.login-logo p{color:rgba(255,255,255,.45);font-size:.82rem;}
+.fl{margin-bottom:1.1rem;}
+.fl label{display:block;font-size:.8rem;font-weight:600;color:rgba(255,255,255,.6);margin-bottom:.4rem;}
+.fl input{width:100%;padding:.7rem 1rem;border-radius:11px;border:1.5px solid rgba(255,255,255,.1);background:rgba(255,255,255,.07);color:#fff;font-size:.9rem;outline:none;transition:var(--t);}
+.fl input:focus{border-color:var(--p1);background:rgba(139,92,246,.1);}
+.fl input::placeholder{color:rgba(255,255,255,.28);}
+.fl input:disabled{opacity:.5;}
+.login-btn{width:100%;padding:.82rem;border-radius:12px;border:none;background:linear-gradient(135deg,#8b5cf6,#7c3aed);color:#fff;font-size:.97rem;font-weight:700;transition:var(--t);display:flex;align-items:center;justify-content:center;gap:.5rem;}
+.login-btn:hover:not(:disabled){transform:translateY(-2px);box-shadow:0 8px 28px rgba(139,92,246,.5);}
+.login-btn:disabled{opacity:.7;cursor:not-allowed;}
+.err{color:#f87171;font-size:.77rem;margin-top:.3rem;}
+.hint-box{margin-top:1.4rem;background:rgba(251,191,36,.09);border:1px solid rgba(251,191,36,.22);border-radius:12px;padding:.9rem 1rem;}
+.hint-box p{color:rgba(251,191,36,.9);font-size:.78rem;line-height:1.6;}
+
+/* API STATUS BANNER */
+.api-banner{position:fixed;bottom:1.2rem;right:1.2rem;z-index:9999;display:flex;align-items:center;gap:.5rem;padding:.45rem 1rem;border-radius:20px;font-size:.75rem;font-weight:700;backdrop-filter:blur(12px);box-shadow:0 4px 20px rgba(0,0,0,.2);animation:fadeUp .4s ease;}
+.api-banner.online{background:rgba(16,185,129,.12);border:1px solid rgba(16,185,129,.3);color:#10b981;}
+.api-banner.offline{background:rgba(139,92,246,.12);border:1px solid rgba(139,92,246,.3);color:var(--p1);}
+
+/* API TOAST */
+.toast-wrap{position:fixed;top:80px;right:1.2rem;z-index:9998;display:flex;flex-direction:column;gap:.5rem;pointer-events:none;}
+.toast{padding:.7rem 1.1rem;border-radius:12px;font-size:.8rem;font-weight:600;backdrop-filter:blur(12px);box-shadow:0 4px 20px rgba(0,0,0,.15);animation:slideIn .3s ease;display:flex;align-items:center;gap:.5rem;pointer-events:none;max-width:320px;}
+.toast.success{background:rgba(16,185,129,.15);border:1px solid rgba(16,185,129,.3);color:#10b981;}
+.toast.error{background:rgba(244,63,94,.12);border:1px solid rgba(244,63,94,.25);color:#f43f5e;}
+.toast.info{background:rgba(139,92,246,.12);border:1px solid rgba(139,92,246,.25);color:var(--p1);}
+@keyframes slideIn{from{opacity:0;transform:translateX(20px)}to{opacity:1;transform:translateX(0)}}
+
+/* API REQUEST LOG */
+.api-log{position:fixed;bottom:1.2rem;left:1.2rem;z-index:9997;width:320px;background:var(--card);border:1px solid var(--border);border-radius:14px;box-shadow:0 8px 32px var(--shadow2);font-size:.72rem;overflow:hidden;transition:var(--t);}
+.api-log-hdr{display:flex;align-items:center;justify-content:space-between;padding:.55rem .9rem;background:var(--bg3);border-bottom:1px solid var(--border);cursor:pointer;}
+.api-log-title{font-weight:700;color:var(--p1);font-size:.75rem;display:flex;align-items:center;gap:.4rem;}
+.api-log-body{max-height:180px;overflow-y:auto;padding:.5rem;}
+.api-log-entry{display:flex;align-items:flex-start;gap:.5rem;padding:.35rem .4rem;border-radius:6px;margin-bottom:.2rem;}
+.api-log-entry:last-child{margin:0;}
+.api-log-entry.req{background:rgba(139,92,246,.06);}
+.api-log-entry.res{background:rgba(16,185,129,.06);}
+.api-log-entry.err{background:rgba(244,63,94,.06);}
+.log-method{font-weight:800;font-size:.68rem;padding:.1rem .38rem;border-radius:4px;flex-shrink:0;}
+.log-method.GET{background:rgba(16,185,129,.15);color:#10b981;}
+.log-method.POST{background:rgba(139,92,246,.15);color:var(--p1);}
+.log-method.PUT{background:rgba(251,191,36,.15);color:#d97706;}
+.log-method.DELETE{background:rgba(244,63,94,.12);color:#f43f5e;}
+.log-method.PATCH{background:rgba(59,130,246,.12);color:#3b82f6;}
+.log-path{color:var(--text2);flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.log-status{font-weight:700;margin-left:auto;flex-shrink:0;}
+.log-status.ok{color:#10b981;}.log-status.err{color:#f43f5e;}.log-status.pending{color:var(--gold);}
+.log-time{color:var(--text3);font-size:.66rem;flex-shrink:0;}
+
+/* JWT BADGE */
+.jwt-badge{display:inline-flex;align-items:center;gap:.35rem;padding:.22rem .65rem;background:rgba(139,92,246,.1);border:1px solid rgba(139,92,246,.2);border-radius:20px;font-size:.7rem;font-weight:700;color:var(--p1);}
+
+/* LOADING SKELETON */
+.skeleton{background:linear-gradient(90deg,var(--bg2) 25%,var(--bg3) 50%,var(--bg2) 75%);background-size:200% 100%;animation:shimmer 1.4s infinite;border-radius:8px;}
+@keyframes shimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
+.skel-card{background:var(--card);border-radius:20px;overflow:hidden;border:1px solid var(--border);padding:0;}
+.skel-img{height:210px;}.skel-body{padding:1.15rem 1.35rem;}
+.skel-line{height:14px;margin-bottom:10px;}
+.skel-line.short{width:60%;}
+
+/* HERO */
+.hero{min-height:calc(100vh - 68px);background:linear-gradient(140deg,#0c0a1e 0%,#1c1538 45%,#2d1b69 100%);display:flex;align-items:center;justify-content:center;text-align:center;position:relative;overflow:hidden;padding:3rem 1.5rem;}
+.hero-orb{position:absolute;border-radius:50%;filter:blur(110px);pointer-events:none;opacity:.22;}
+.hero-content{position:relative;z-index:1;max-width:820px;}
+.hero-badge{display:inline-flex;align-items:center;gap:.45rem;background:rgba(139,92,246,.18);border:1px solid rgba(139,92,246,.3);border-radius:20px;padding:.38rem 1rem;color:#a78bfa;font-size:.8rem;font-weight:600;margin-bottom:1.6rem;animation:fadeUp .5s ease;}
+.hero-title{font-family:'Cormorant Garamond',serif;font-size:clamp(2.8rem,7vw,5rem);font-weight:700;color:#fff;line-height:1.12;margin-bottom:1.2rem;animation:fadeUp .6s .1s ease both;}
+.hero-title span{background:linear-gradient(135deg,#a78bfa,#ec4899,#fbbf24);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+.hero-sub{color:rgba(255,255,255,.55);font-size:1.05rem;line-height:1.75;margin-bottom:2.5rem;animation:fadeUp .6s .2s ease both;}
+.search-row{display:flex;gap:.65rem;background:rgba(255,255,255,.07);border:1.5px solid rgba(255,255,255,.1);border-radius:16px;padding:.65rem;max-width:580px;margin:0 auto 3rem;backdrop-filter:blur(12px);animation:fadeUp .6s .3s ease both;}
+.search-icon{font-size:1.1rem;padding:.2rem .3rem;align-self:center;}
+.search-input{flex:1;background:none;border:none;outline:none;color:#fff;font-size:.97rem;padding:.15rem .4rem;}
+.search-input::placeholder{color:rgba(255,255,255,.3);}
+.stats-row{display:flex;gap:2.5rem;justify-content:center;flex-wrap:wrap;animation:fadeUp .6s .4s ease both;}
+.stat .n{font-family:'Cormorant Garamond',serif;font-size:2.2rem;font-weight:700;background:linear-gradient(135deg,#a78bfa,#ec4899);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+.stat .l{color:rgba(255,255,255,.45);font-size:.78rem;margin-top:.1rem;}
+
+/* CARDS */
+.grid3{display:grid;grid-template-columns:repeat(auto-fill,minmax(330px,1fr));gap:1.6rem;}
+.grid4{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:1.4rem;}
+.dest-card{background:var(--card);border-radius:20px;overflow:hidden;border:1px solid var(--border);transition:var(--t);cursor:pointer;box-shadow:0 3px 18px var(--shadow);}
+.dest-card:hover{transform:translateY(-6px);box-shadow:0 18px 50px var(--shadow2);border-color:var(--border2);}
+.card-img{position:relative;height:210px;overflow:hidden;}
+.card-img img{width:100%;height:100%;object-fit:cover;transition:transform .5s;}
+.dest-card:hover .card-img img{transform:scale(1.07);}
+.card-badge{position:absolute;top:11px;left:11px;background:rgba(0,0,0,.58);backdrop-filter:blur(8px);color:#fff;font-size:.68rem;font-weight:700;padding:.28rem .65rem;border-radius:20px;text-transform:uppercase;letter-spacing:.5px;}
+.card-body{padding:1.15rem 1.35rem;}
+.card-name{font-size:1.08rem;font-weight:700;color:var(--text);margin-bottom:.3rem;}
+.card-desc{font-size:.8rem;color:var(--text3);line-height:1.62;margin-bottom:.9rem;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;}
+.card-foot{display:flex;align-items:center;justify-content:space-between;}
+.rating{font-size:.83rem;font-weight:600;color:var(--gold);}
+.price{font-size:.92rem;font-weight:700;color:var(--p1);}
+
+/* DETAIL */
+.detail-wrap{max-width:1100px;margin:0 auto;padding:2rem 1.5rem;}
+.back-btn{display:inline-flex;align-items:center;gap:.45rem;padding:.52rem 1.1rem;border-radius:9px;border:1.5px solid var(--border);background:var(--card);color:var(--text3);font-size:.83rem;font-weight:600;transition:var(--t);margin-bottom:1.8rem;}
+.back-btn:hover{border-color:var(--p1);color:var(--p1);}
+.gallery{display:grid;grid-template-columns:2fr 1fr;grid-template-rows:1fr 1fr;gap:.65rem;height:440px;border-radius:20px;overflow:hidden;margin-bottom:2.3rem;}
+.gallery img{width:100%;height:100%;object-fit:cover;transition:transform .4s;cursor:pointer;}
+.gallery img:hover{transform:scale(1.04);}
+.gallery img:first-child{grid-row:1/3;}
+.detail-layout{display:grid;grid-template-columns:1fr 320px;gap:2rem;margin-bottom:3rem;}
+.about-title{font-family:'Cormorant Garamond',serif;font-size:1.9rem;font-weight:700;color:var(--text);margin:.5rem 0 .9rem;}
+.about-text{color:var(--text2);line-height:1.82;font-size:.9rem;margin-bottom:1.4rem;}
+.att-title{font-weight:700;font-size:.88rem;color:var(--text);margin-bottom:.65rem;}
+.tags{display:flex;flex-wrap:wrap;gap:.4rem;}
+.tag{padding:.35rem .8rem;background:var(--bg3);border:1px solid var(--border);border-radius:20px;font-size:.75rem;font-weight:500;color:var(--text2);}
+.info-card{background:var(--card);border:1px solid var(--border);border-radius:20px;padding:1.4rem;box-shadow:0 4px 20px var(--shadow);height:fit-content;}
+.info-card h3{font-size:.93rem;font-weight:700;color:var(--text);margin-bottom:1.1rem;padding-bottom:.7rem;border-bottom:1px solid var(--border);}
+.irow{display:flex;justify-content:space-between;margin-bottom:.8rem;font-size:.82rem;}
+.ilabel{color:var(--text3);font-weight:500;}.ivalue{color:var(--text);font-weight:600;text-align:right;max-width:56%;}
+.hotels-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(295px,1fr));gap:1.4rem;}
+.hotel-card{background:var(--card);border:1px solid var(--border);border-radius:18px;overflow:hidden;transition:var(--t);box-shadow:0 3px 14px var(--shadow);}
+.hotel-card:hover{transform:translateY(-4px);box-shadow:0 14px 38px var(--shadow2);}
+.h-imgs{display:grid;grid-template-columns:1fr 1fr;grid-template-rows:auto auto;gap:2px;height:172px;}
+.h-imgs img{width:100%;height:100%;object-fit:cover;}
+.h-imgs img:first-child{grid-column:1/3;height:104px;}
+.h-imgs img:not(:first-child){height:66px;}
+.h-body{padding:1rem 1.2rem;}
+.h-name{font-size:.97rem;font-weight:700;color:var(--text);margin-bottom:.28rem;}
+.h-rating{color:var(--gold);font-size:.8rem;margin-bottom:.55rem;}
+.amenities{display:flex;flex-wrap:wrap;gap:.32rem;margin-bottom:.85rem;}
+.am{font-size:.68rem;padding:.22rem .58rem;background:var(--bg3);border-radius:20px;color:var(--text3);font-weight:500;}
+.h-foot{display:flex;align-items:center;justify-content:space-between;}
+.h-price{font-size:.95rem;font-weight:700;color:var(--p1);}
+.h-price sub{font-size:.7rem;font-weight:400;color:var(--text3);}
+
+/* BOOKINGS */
+.empty-state{text-align:center;padding:5rem 1.5rem;}
+.empty-icon{font-size:3.8rem;opacity:.25;margin-bottom:1rem;}
+.booking-card{background:var(--card);border:1px solid var(--border);border-radius:18px;padding:1.4rem;box-shadow:0 3px 16px var(--shadow);transition:var(--t);}
+.booking-card:hover{border-color:var(--border2);}
+.bk-id{font-size:.72rem;color:var(--text3);margin-bottom:.38rem;}
+.bk-name{font-size:1.05rem;font-weight:700;color:var(--text);margin-bottom:.22rem;}
+.bk-dest{font-size:.82rem;color:var(--p1);font-weight:600;margin-bottom:.9rem;}
+.bk-grid{display:grid;grid-template-columns:1fr 1fr;gap:.65rem;margin-bottom:.9rem;}
+.bk-field .bfl{font-size:.72rem;color:var(--text3);margin-bottom:.12rem;}
+.bk-field .bfv{font-size:.82rem;font-weight:600;color:var(--text);}
+.bk-total{font-size:.95rem;font-weight:700;color:var(--p1);border-top:1px solid var(--border);padding-top:.7rem;}
+.conf-badge{display:inline-flex;align-items:center;gap:.28rem;padding:.22rem .65rem;background:rgba(16,185,129,.1);border:1px solid rgba(16,185,129,.22);border-radius:20px;color:var(--emerald);font-size:.72rem;font-weight:700;margin-left:.5rem;}
+.pkg-card{background:linear-gradient(135deg,var(--bg2),var(--card));border:1px solid var(--border2);border-radius:18px;padding:1.4rem;box-shadow:0 3px 16px var(--shadow);}
+.pkg-title{font-size:1rem;font-weight:700;color:var(--text);margin-bottom:.22rem;}
+.pkg-dest{font-size:.82rem;color:var(--sec);font-weight:600;margin-bottom:.8rem;}
+.pkg-details{display:grid;grid-template-columns:1fr 1fr;gap:.55rem;margin-bottom:.8rem;}
+.pkg-field .pfl{font-size:.7rem;color:var(--text3);margin-bottom:.1rem;}
+.pkg-field .pfv{font-size:.8rem;font-weight:600;color:var(--text);}
+.pkg-cost{font-size:.95rem;font-weight:700;color:var(--sec);border-top:1px solid var(--border);padding-top:.65rem;}
+.tabs-row{display:flex;gap:.5rem;margin-bottom:2rem;flex-wrap:wrap;}
+.tab-btn{padding:.45rem 1.1rem;border-radius:20px;border:1.5px solid var(--border);background:none;font-size:.8rem;font-weight:600;color:var(--text3);transition:var(--t);}
+.tab-btn.active{background:var(--p1);border-color:var(--p1);color:#fff;}
+
+/* GUIDES */
+.guide-card{background:var(--card);border:1px solid var(--border);border-radius:18px;padding:1.6rem;text-align:center;transition:var(--t);box-shadow:0 3px 14px var(--shadow);}
+.guide-card:hover{transform:translateY(-5px);box-shadow:0 18px 42px var(--shadow2);border-color:var(--border2);}
+.g-img{width:82px;height:82px;border-radius:50%;object-fit:cover;margin:0 auto .9rem;border:3px solid var(--p1);}
+.g-name{font-size:.95rem;font-weight:700;color:var(--text);margin-bottom:.18rem;}
+.g-spec{font-size:.78rem;color:var(--p1);font-weight:600;margin-bottom:.38rem;}
+.g-loc{font-size:.75rem;color:var(--text3);margin-bottom:.6rem;}
+.g-rating{color:var(--gold);font-size:.82rem;margin-bottom:.6rem;}
+.g-langs{font-size:.76rem;color:var(--text2);margin-bottom:.42rem;}
+.g-price{font-size:1rem;font-weight:700;color:var(--p1);margin-bottom:.9rem;}
+.g-price sub{font-size:.7rem;font-weight:400;color:var(--text3);}
+.book-g-btn{width:100%;padding:.6rem;border-radius:10px;border:2px solid var(--p1);background:none;color:var(--p1);font-weight:700;font-size:.82rem;transition:var(--t);}
+.book-g-btn:hover{background:var(--p1);color:#fff;}
+
+/* PLANNER */
+.planner-wrap{max-width:860px;margin:0 auto;}
+.prog-bar{display:flex;position:relative;margin-bottom:2.8rem;}
+.prog-bar::before{content:'';position:absolute;top:17px;left:0;right:0;height:2px;background:var(--border);z-index:0;}
+.prog-step{flex:1;text-align:center;position:relative;z-index:1;}
+.prog-dot{width:34px;height:34px;border-radius:50%;border:2px solid var(--border);background:var(--bg);margin:0 auto .45rem;display:flex;align-items:center;justify-content:center;font-size:.76rem;font-weight:700;color:var(--text3);transition:var(--t);}
+.prog-step.active .prog-dot,.prog-step.done .prog-dot{background:var(--p1);border-color:var(--p1);color:#fff;}
+.prog-lbl{font-size:.72rem;font-weight:500;color:var(--text3);transition:var(--t);}
+.prog-step.active .prog-lbl{color:var(--p1);font-weight:700;}
+.plan-card{background:var(--card);border:1px solid var(--border);border-radius:22px;padding:2.2rem;box-shadow:0 4px 28px var(--shadow);}
+.plan-card h2{font-family:'Cormorant Garamond',serif;font-size:1.55rem;font-weight:700;color:var(--text);margin-bottom:1.6rem;}
+.ff{margin-bottom:1rem;}
+.ff label{display:block;font-size:.8rem;font-weight:600;color:var(--text2);margin-bottom:.42rem;}
+.ff select,.ff input{width:100%;padding:.68rem .95rem;border-radius:11px;border:1.5px solid var(--border);background:var(--bg);color:var(--text);font-size:.88rem;outline:none;transition:var(--t);}
+.ff select:focus,.ff input:focus{border-color:var(--p1);}
+.form2{display:grid;grid-template-columns:1fr 1fr;gap:1rem;}
+.int-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:.42rem;}
+.int-chip{padding:.45rem .3rem;border-radius:9px;border:1.5px solid var(--border);text-align:center;font-size:.75rem;font-weight:600;color:var(--text3);transition:var(--t);background:var(--bg);}
+.int-chip.sel{border-color:var(--p1);background:rgba(139,92,246,.1);color:var(--p1);}
+.opt-card{border:1.5px solid var(--border);border-radius:13px;padding:.9rem 1.1rem;cursor:pointer;transition:var(--t);background:var(--bg);display:flex;align-items:center;gap:.9rem;margin-bottom:.6rem;}
+.opt-card:hover{border-color:var(--p1);}.opt-card.sel{border-color:var(--p1);background:rgba(139,92,246,.07);}
+.opt-radio{width:17px;height:17px;border-radius:50%;border:2px solid var(--border);flex-shrink:0;transition:var(--t);}
+.opt-card.sel .opt-radio{background:var(--p1);border-color:var(--p1);}
+.opt-info{flex:1;}.opt-name{font-weight:700;font-size:.88rem;color:var(--text);margin-bottom:.15rem;}
+.opt-detail{font-size:.74rem;color:var(--text3);}.opt-price{font-weight:700;color:var(--p1);font-size:.9rem;white-space:nowrap;}
+.pnav{display:flex;justify-content:space-between;margin-top:1.8rem;gap:.8rem;}
+.itin-sum{display:grid;grid-template-columns:1fr 1fr;gap:.8rem;margin-bottom:1.5rem;}
+.sum-card{background:var(--bg2);border-radius:12px;padding:.9rem 1.1rem;border:1px solid var(--border);}
+.sum-lbl{font-size:.68rem;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:.6px;margin-bottom:.2rem;}
+.sum-val{font-size:.86rem;font-weight:700;color:var(--text);}
+.day-block{background:var(--bg2);border-radius:12px;padding:1.1rem;border:1px solid var(--border);margin-bottom:.65rem;}
+.day-hdr{font-weight:700;color:var(--p1);font-size:.9rem;margin-bottom:.85rem;}
+.t-row{display:flex;gap:.65rem;margin-bottom:.65rem;align-items:flex-start;}
+.t-time{font-size:.68rem;font-weight:700;color:var(--text3);min-width:72px;padding-top:.14rem;flex-shrink:0;}
+.t-txt{font-size:.81rem;color:var(--text2);line-height:1.5;}.t-txt strong{color:var(--text);}
+.cost-table{background:var(--bg2);border-radius:12px;padding:1.1rem;border:1px solid var(--border);margin-top:.9rem;}
+.cost-row{display:flex;justify-content:space-between;padding:.45rem 0;border-bottom:1px solid var(--border);font-size:.84rem;}
+.cost-row:last-child{border:none;font-weight:700;color:var(--p1);font-size:.97rem;padding-top:.65rem;}
+.itin-scroll{max-height:400px;overflow-y:auto;padding-right:.3rem;margin-bottom:.5rem;}
+
+/* VAULT */
+.vault-header{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:2rem;flex-wrap:wrap;gap:1rem;}
+.mem-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:1.4rem;}
+.mem-card{background:var(--card);border:1px solid var(--border);border-radius:18px;padding:1.35rem;transition:var(--t);box-shadow:0 3px 14px var(--shadow);position:relative;}
+.mem-card:hover{border-color:var(--border2);box-shadow:0 10px 32px var(--shadow2);}
+.mem-loc{display:flex;align-items:center;gap:.4rem;font-size:.8rem;font-weight:700;color:var(--p1);margin-bottom:.3rem;}
+.mem-date{font-size:.72rem;color:var(--text3);margin-bottom:.7rem;}
+.mem-text{font-size:.84rem;color:var(--text2);line-height:1.68;}
+.mem-actions{display:flex;gap:.5rem;margin-top:.9rem;padding-top:.7rem;border-top:1px solid var(--border);}
+.mem-btn{padding:.32rem .75rem;border-radius:7px;border:1.5px solid var(--border);background:none;font-size:.74rem;font-weight:600;color:var(--text3);transition:var(--t);}
+.mem-btn:hover{border-color:var(--p1);color:var(--p1);}.mem-btn.del:hover{border-color:#f43f5e;color:#f43f5e;}
+.add-mem-form{background:var(--card);border:1.5px dashed var(--border2);border-radius:18px;padding:1.5rem;margin-bottom:2rem;}
+.add-mem-form h3{font-size:1rem;font-weight:700;color:var(--text);margin-bottom:1.1rem;}
+.form3{display:grid;grid-template-columns:1fr 1fr;gap:.8rem;margin-bottom:.8rem;}
+.vault-textarea{width:100%;padding:.7rem .95rem;border-radius:11px;border:1.5px solid var(--border);background:var(--bg);color:var(--text);font-size:.86rem;resize:vertical;outline:none;transition:var(--t);min-height:80px;margin-bottom:.8rem;}
+.vault-textarea:focus{border-color:var(--p1);}
+.vault-input{width:100%;padding:.65rem .95rem;border-radius:11px;border:1.5px solid var(--border);background:var(--bg);color:var(--text);font-size:.86rem;outline:none;transition:var(--t);}
+.vault-input:focus{border-color:var(--p1);}
+.empty-vault{text-align:center;padding:3rem;color:var(--text3);}
+.empty-vault-icon{font-size:3rem;opacity:.3;margin-bottom:.8rem;}
+
+/* MODAL */
+.overlay{position:fixed;inset:0;background:var(--modal-bg);backdrop-filter:blur(10px);z-index:1000;display:flex;align-items:center;justify-content:center;padding:1rem;}
+.modal{background:var(--card);border-radius:22px;width:100%;max-width:660px;max-height:90vh;overflow-y:auto;box-shadow:0 28px 80px rgba(0,0,0,.5);border:1px solid var(--border);}
+.modal-hdr{padding:1.4rem 1.65rem 1.1rem;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;background:var(--card);border-radius:22px 22px 0 0;z-index:5;}
+.modal-title{font-size:1.05rem;font-weight:700;color:var(--text);}
+.close-btn{width:30px;height:30px;border-radius:50%;border:1.5px solid var(--border);background:none;font-size:.9rem;color:var(--text3);display:flex;align-items:center;justify-content:center;transition:var(--t);}
+.close-btn:hover{border-color:#f43f5e;color:#f43f5e;}
+.modal-steps{display:flex;}.m-step{flex:1;text-align:center;font-size:.74rem;font-weight:600;color:var(--text3);padding:.38rem;border-bottom:2px solid var(--border);transition:var(--t);}
+.m-step.active,.m-step.done{color:var(--p1);border-color:var(--p1);}
+.modal-body{padding:1.6rem;}
+.m-imgs{display:grid;grid-template-columns:repeat(3,1fr);gap:.45rem;margin-bottom:1.1rem;height:150px;}
+.m-imgs img{width:100%;height:100%;object-fit:cover;border-radius:9px;}
+.room-list{margin-top:.9rem;}
+.r-opt{border:1.5px solid var(--border);border-radius:10px;padding:.68rem 1rem;cursor:pointer;transition:var(--t);display:flex;justify-content:space-between;align-items:center;margin-bottom:.45rem;}
+.r-opt:hover{border-color:var(--p1);}.r-opt.sel{border-color:var(--p1);background:rgba(139,92,246,.07);}
+.r-name{font-weight:600;font-size:.86rem;color:var(--text);}.r-price{font-weight:700;color:var(--p1);font-size:.86rem;}
+.confirm-ctr{text-align:center;padding:1rem 0;}
+.conf-icon{font-size:2.8rem;margin-bottom:.8rem;}
+.conf-id{font-size:.76rem;color:var(--text3);margin-bottom:.4rem;}
+.conf-hname{font-size:1.2rem;font-weight:700;color:var(--text);margin-bottom:1.3rem;}
+.conf-table{background:var(--bg2);border-radius:13px;padding:1.1rem;margin-bottom:1.1rem;text-align:left;}
+.ctr{display:flex;justify-content:space-between;padding:.42rem 0;font-size:.83rem;border-bottom:1px solid var(--border);}
+.ctr:last-child{border:none;font-weight:700;color:var(--p1);}.ct-l{color:var(--text3);}
+.modal-foot{padding:.9rem 1.65rem 1.4rem;display:flex;gap:.65rem;justify-content:flex-end;border-top:1px solid var(--border);}
+
+/* SPINNER */
+.spin-wrap{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:3rem;gap:1rem;}
+.spinner{width:36px;height:36px;border:3px solid var(--border);border-top-color:var(--p1);border-radius:50%;animation:spin .7s linear infinite;}
+.spin-txt{font-size:.82rem;color:var(--text3);}
+
+/* ANIMATIONS */
+@keyframes fadeUp{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:translateY(0)}}
+@keyframes spin{to{transform:rotate(360deg)}}
+.fade-in{animation:fadeUp .45s ease both;}
+
+/* RESPONSIVE */
+@media(max-width:768px){
+  .nav-links{display:none;}.ham{display:flex;}
+  .nav-right .user-pill span:not(.user-av){display:none;}
+  .gallery{grid-template-columns:1fr;height:280px;}
+  .gallery img:first-child{grid-row:auto;}
+  .detail-layout{grid-template-columns:1fr;}
+  .form2,.itin-sum,.form3{grid-template-columns:1fr;}
+  .int-grid{grid-template-columns:repeat(2,1fr);}
+  .grid3,.grid4{grid-template-columns:1fr;}
+  .plan-card{padding:1.4rem;}
+  .bk-grid,.pkg-details{grid-template-columns:1fr;}
+  .api-log{display:none;}
+}
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel">
+const {useState,useEffect,useRef,useCallback} = React;
+
+/* ═══════════════════════ SIMULATED SPRING BOOT API ═══════════════════════
+   Mimics a real Spring Boot REST backend:
+   - JWT token generation & storage
+   - Realistic network delay (300-900ms)
+   - Proper HTTP method logging (GET/POST/PUT/DELETE/PATCH)
+   - Status codes (200, 201, 400, 401, 404)
+   - ApiResponse<T> wrapper matching the real backend exactly
+   ════════════════════════════════════════════════════════════════════════ */
+
+const API_BASE = 'http://localhost:8080/api'; // shown in logs (not actually called)
+
+/* JWT Simulation */
+const JwtSim = {
+  generate: (username) => {
+    const header = btoa(JSON.stringify({alg:'HS256',typ:'JWT'}));
+    const payload = btoa(JSON.stringify({sub:username,iat:Date.now(),exp:Date.now()+86400000}));
+    const sig = btoa(username + '_wanderluxe_secret_2025').substring(0,16);
+    return `${header}.${payload}.${sig}`;
+  },
+  getToken: () => sessionStorage.getItem('wl_jwt'),
+  setToken: (t) => sessionStorage.setItem('wl_jwt', t),
+  clearToken: () => sessionStorage.removeItem('wl_jwt'),
+  getUsername: () => {
+    const t = sessionStorage.getItem('wl_jwt');
+    if(!t) return null;
+    try { return JSON.parse(atob(t.split('.')[1])).sub; } catch{ return null; }
+  }
+};
+
+/* API Log Store */
+let apiLogListeners = [];
+let apiLogs = [];
+const addLog = (entry) => {
+  apiLogs = [entry, ...apiLogs].slice(0, 20);
+  apiLogListeners.forEach(fn => fn([...apiLogs]));
+};
+
+/* Fake network delay */
+const delay = (ms) => new Promise(r => setTimeout(r, ms));
+const randDelay = () => delay(300 + Math.random() * 600);
+
+/* ApiResponse<T> wrapper — matches Spring Boot backend exactly */
+const ok = (data, message='', totalCount=0) => ({success:true, message, data, totalCount});
+const err = (message, status=400) => { throw {success:false, message, status}; };
+
+/* ═══════════════════════════════ DATA ════════════════════════════════════ */
+const USERS=[{u:'Keerthi',p:'Keerthi@123',email:'keerthi@wanderluxe.com'},{u:'Akshitha',p:'Akshu@123',email:'akshitha@wanderluxe.com'}];
+
+const DEST=[
+  {id:1,name:'Santorini',country:'Greece',cat:'Island Paradise',rating:4.9,price:'$2,500+',currency:'Euro (€)',lang:'Greek',best:'April–October',
+   desc:'Santorini rises from the Aegean Sea as a masterpiece of nature and architecture — whitewashed cubic homes spill over volcanic caldera cliffs, blue-domed churches reflect in impossibly turquoise water, and sunsets ignite the sky in hues of amber and crimson that have inspired poets for millennia.',
+   att:['Oia Sunset Point','Akrotiri Ruins','Red Beach','Fira Caldera Walk','Amoudi Bay','Nea Kameni Volcano','Pyrgos Village'],
+   imgs:['https://images.unsplash.com/photo-1570077188670-e3a8d69ac5ff?w=800&q=80','https://images.unsplash.com/photo-1613395877344-13d4a8e0d49e?w=600&q=80','https://images.unsplash.com/photo-1601581875309-fafbf2d3ed3a?w=600&q=80','https://images.unsplash.com/photo-1555993539-1732b0258235?w=600&q=80'],
+   hotels:[{name:'Canaves Oia Suites',rating:4.9,price:850,amenities:['Infinity Pool','Private Terrace','Butler Service','Caldera View'],imgs:['https://images.unsplash.com/photo-1566073771259-6a8506099945?w=600&q=80','https://images.unsplash.com/photo-1582719508461-905c673771fd?w=400&q=80','https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=400&q=80'],rooms:[{t:'Cliff Suite',p:850},{t:'Cave Suite',p:1100},{t:'Presidential Villa',p:1800}]},{name:'Grace Hotel Santorini',rating:4.8,price:680,amenities:['Sea View Dining','Yoga Studio','Wine Cellar','Spa'],imgs:['https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=600&q=80','https://images.unsplash.com/photo-1584132967334-10e028bd69f7?w=400&q=80','https://images.unsplash.com/photo-1563911302283-d2bc129e7570?w=400&q=80'],rooms:[{t:'Deluxe Room',p:680},{t:'Superior Suite',p:950},{t:'Master Suite',p:1400}]}],
+   morn:['Hike Fira to Oia on caldera trail','Sunrise session at Skaros Rock','Akrotiri ruins early visit (8:30 AM)','Wine tasting at Santo Winery terrace'],
+   aft:['Boat tour to Nea Kameni volcano','Red Beach afternoon swim','Ancient Thira archaeological site','Perissa black-sand beach relaxation'],
+   eve:['Legendary Oia sunset experience','Fine dining at Kastro Restaurant','Cocktails at Tango Bar caldera views','Metaxy Mas traditional Greek dinner'],
+   rest:['Kastro Restaurant','Koukoumavlos Fine Dining','Metaxy Mas Cretan Cuisine','Naoussa Seafood'],
+   cafe:["Franco's Bar","Lolita's Gelato Oia","Roka Café Fira","Biker's Café Oia"]},
+  {id:2,name:'Maldives',country:'Maldives',cat:'Beach Luxury',rating:5.0,price:'$3,000+',currency:'Rufiyaa (MVR)',lang:'Dhivehi/English',best:'Nov–April',
+   desc:"The Maldives is the planet's most extravagant aquatic dreamscape — 1,200 coral islands stitched across the Indian Ocean, each ringed by lagoons in impossible shades of cyan and jade.",
+   att:['Banana Reef Diving','Vaadhoo Bioluminescent Beach','Male Old City','Maafushi Island','Biyadhoo Snorkeling','Utheemu Palace','HP Reef'],
+   imgs:['https://images.unsplash.com/photo-1514282401047-d79a71a590e8?w=800&q=80','https://images.unsplash.com/photo-1540541338537-1220059eac8f?w=600&q=80','https://images.unsplash.com/photo-1512100356356-de1b84283e18?w=600&q=80','https://images.unsplash.com/photo-1573843981267-be1999ff37cd?w=600&q=80'],
+   hotels:[{name:'Gili Lankanfushi',rating:5.0,price:2200,amenities:['Overwater Villa','Private Butler','Organic Restaurant','Snorkeling Gear'],imgs:['https://images.unsplash.com/photo-1587474260584-136574528ed5?w=600&q=80','https://images.unsplash.com/photo-1548013146-72479768bada?w=400&q=80','https://images.unsplash.com/photo-1590523741831-ab7e8b8f9c7f?w=400&q=80'],rooms:[{t:'Overwater Bungalow',p:2200},{t:'Residence Villa',p:3500},{t:'Private Island',p:8000}]},{name:'Soneva Jani',rating:4.9,price:1800,amenities:['Water Slide Villa','Cinema Room','Eco Spa','In-water Bar'],imgs:['https://images.unsplash.com/photo-1506197603052-3cc9c3a201bd?w=600&q=80','https://images.unsplash.com/photo-1551918120-9739cb430c6d?w=400&q=80','https://images.unsplash.com/photo-1470010762743-1fa2363c65f4?w=400&q=80'],rooms:[{t:'Water Retreat',p:1800},{t:'Two-Bedroom Villa',p:3200},{t:'The Rock',p:5500}]}],
+   morn:['Sunrise yoga on private deck','Guided snorkeling at house reef (7 AM)','Dolphin watching seaplane cruise','Glass-bottom kayaking over coral'],
+   aft:['Scuba diving at Banana Reef','Uninhabited sandbank picnic','Sunset fishing with local crew','Underwater sea walk experience'],
+   eve:['Vaadhoo bioluminescent beach walk','Sandbank dining under the stars','Traditional Bodu Beru drumming show','Rooftop stargazing with telescope'],
+   rest:['Ithaa Undersea Restaurant','Muraka Underwater Dining','Baraabaru Overwater Dining','Meeru Island Resort Restaurant'],
+   cafe:['Nautilus Beach Club','Sand Bar Maldives','Serene Café Hulhumale','Blue Lagoon Lounge']},
+  {id:3,name:'Kyoto',country:'Japan',cat:'Cultural Heritage',rating:4.8,price:'$1,800+',currency:'Yen (¥)',lang:'Japanese',best:'Mar–May, Oct–Nov',
+   desc:"Kyoto is Japan's spiritual soul — 1,600 Buddhist temples and 400 Shinto shrines standing sentinel across forested hillsides, while geisha glide silently through gas-lit Gion lanes.",
+   att:['Fushimi Inari Shrine','Arashiyama Bamboo Grove','Gion Geisha District','Kinkaku-ji Golden Pavilion','Nishiki Market',"Philosopher's Walk",'Nijo Castle'],
+   imgs:['https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?w=800&q=80','https://images.unsplash.com/photo-1528360983277-13d401cdc186?w=600&q=80','https://images.unsplash.com/photo-1524413840807-0c3cb6fa808d?w=600&q=80','https://images.unsplash.com/photo-1545569341-9eb8b30979d9?w=600&q=80'],
+   hotels:[{name:'Aman Kyoto',rating:5.0,price:1200,amenities:['Forest Retreat','Tea Ceremony','Onsen Bath','Kaiseki Dining'],imgs:['https://images.unsplash.com/photo-1578683010236-d716f9a3f461?w=600&q=80','https://images.unsplash.com/photo-1540555700478-4be289fbecef?w=400&q=80','https://images.unsplash.com/photo-1601919051950-bb9f3ffb3fee?w=400&q=80'],rooms:[{t:'Garden Suite',p:1200},{t:'Forest Retreat',p:1800},{t:'Kyoto Suite',p:2800}]},{name:'Ritz-Carlton Kyoto',rating:4.9,price:950,amenities:['Kamogawa Views','Michelin Restaurant','Japanese Garden','French Spa'],imgs:['https://images.unsplash.com/photo-1566073771259-6a8506099945?w=600&q=80','https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?w=400&q=80','https://images.unsplash.com/photo-1568605114967-8130f3a36994?w=400&q=80'],rooms:[{t:'Kamogawa Room',p:950},{t:'Maple Suite',p:1400},{t:'Presidential Suite',p:3000}]}],
+   morn:['Fushimi Inari hike at dawn (fewer crowds)','Tea ceremony at Urasenke school 9 AM','Arashiyama bamboo grove morning walk','Zazen meditation at Kennin-ji Temple'],
+   aft:['Nishiki Market street food tour','Kinkaku-ji & Ryoan-ji rock garden','Kimono rental and stroll in Gion','Traditional ikebana flower class'],
+   eve:['Geisha spotting at dusk in Gion','Kaiseki multi-course dinner experience','Nishi-Hongan-ji illumination event','Sake tasting in Fushimi district'],
+   rest:['Kikunoi Honten Kaiseki','Nakamura-ro (Oldest in Japan)','Menami Gion Traditional','Tempura Matsu Honten'],
+   cafe:['Kissa-ten Vermillion','% Arabica Kyoto','Elephant Factory Coffee','Café Bibliotic Hello!']},
+  {id:4,name:'Amalfi Coast',country:'Italy',cat:'Coastal Escape',rating:4.9,price:'$2,200+',currency:'Euro (€)',lang:'Italian',best:'May–September',
+   desc:"The Amalfi Coast is Italy's most intoxicating stretch of coastline — 50km of vertiginous drama where lemon-scented cliffsides plummet to Mediterranean coves in every impossible shade of blue.",
+   att:['Positano Village','Ravello Gardens','Emerald Grotto','Path of the Gods Hike','Amalfi Cathedral','Praiano Sunset Point','Valle delle Ferriere'],
+   imgs:['https://images.unsplash.com/photo-1534430480872-3498386e7856?w=800&q=80','https://images.unsplash.com/photo-1551285893-9f45c8e3c3b5?w=600&q=80','https://images.unsplash.com/photo-1548171915-e79a6a8bdbfd?w=600&q=80','https://images.unsplash.com/photo-1523906834658-6e24ef2386f9?w=600&q=80'],
+   hotels:[{name:'Hotel Santa Caterina',rating:4.9,price:780,amenities:['Cliffside Pool','Private Beach','Sea View Dining','Wellness Spa'],imgs:['https://images.unsplash.com/photo-1582719508461-905c673771fd?w=600&q=80','https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=400&q=80','https://images.unsplash.com/photo-1584132967334-10e028bd69f7?w=400&q=80'],rooms:[{t:'Classic Room',p:780},{t:'Junior Suite',p:1100},{t:'Grand Suite',p:1900}]},{name:'Le Sirenuse Positano',rating:5.0,price:950,amenities:['Seafront Pool','Michelin Dining','Private Boats','Vespa Rental'],imgs:['https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=600&q=80','https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?w=400&q=80','https://images.unsplash.com/photo-1612965607446-25e1332775ae?w=400&q=80'],rooms:[{t:'Superior Room',p:950},{t:'Deluxe Suite',p:1500},{t:'Grand Siren Suite',p:2800}]}],
+   morn:['Path of the Gods hike (Sentiero degli Dei)','Emerald Grotto boat visit (9 AM)','Morning swim at Marina di Praia','Ravello hilltop gardens at Villa Cimbrone'],
+   aft:['Private boat tour along the coast','Lemon grove tour and limoncello tasting','Snorkeling in crystal clear coves','Amalfi Cathedral and Paper Museum'],
+   eve:['Sunset aperitivo at Positano waterfront','Fine dining at La Sponda Restaurant','Cliffside cocktails at Bar Calypso','Evening passeggiata through Amalfi'],
+   rest:['La Caravella Michelin Star','Il San Pietro Dining Room','Ristorante Max Positano','Da Adolfo (boat access only)'],
+   cafe:['Bar Risorgimento Amalfi','Gran Café Ravello','Pasticceria Pansa','Bar Collina Praiano']},
+  {id:5,name:'Bali',country:'Indonesia',cat:'Tropical Retreat',rating:4.7,price:'$1,200+',currency:'Rupiah (IDR)',lang:'Balinese/Indonesian',best:'April–October',
+   desc:"Bali, the Island of the Gods, is a place where ancient Hindu civilization breathes through every carved stone gate, where gamelan music floods fragrant evening air, and where daily flower offerings transform the mundane into the sacred.",
+   att:['Ubud Monkey Forest','Tegallalang Rice Terraces','Tanah Lot Temple','Mount Batur Sunrise','Uluwatu Cliff Temple','Tirta Empul Water Temple','Seminyak Beach'],
+   imgs:['https://images.unsplash.com/photo-1537996194471-e657df975ab4?w=800&q=80','https://images.unsplash.com/photo-1518548419970-58e3b4079ab2?w=600&q=80','https://images.unsplash.com/photo-1555400038-63f5ba517a47?w=600&q=80','https://images.unsplash.com/photo-1571519926553-67be9a73e280?w=600&q=80'],
+   hotels:[{name:'COMO Uma Ubud',rating:4.9,price:480,amenities:['Jungle Pool','Holistic Spa','Cooking Classes','Rice Field Views'],imgs:['https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=600&q=80','https://images.unsplash.com/photo-1563911302283-d2bc129e7570?w=400&q=80','https://images.unsplash.com/photo-1566073771259-6a8506099945?w=400&q=80'],rooms:[{t:'Uma Suite',p:480},{t:'Pool Villa',p:750},{t:'Jungle Retreat',p:1100}]},{name:'Four Seasons Sayan',rating:5.0,price:650,amenities:['Ayung River Views','Treehouse Restaurant','Ayurvedic Spa','Meditation Deck'],imgs:['https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=600&q=80','https://images.unsplash.com/photo-1578683010236-d716f9a3f461?w=400&q=80','https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?w=400&q=80'],rooms:[{t:'River Valley Room',p:650},{t:'River View Suite',p:950},{t:'Villa',p:1600}]}],
+   morn:['Mount Batur sunrise trek (3 AM start)','Tegallalang rice terrace photography','Sunrise yoga at Desa Seni','Balinese cooking class morning session'],
+   aft:['White water rafting on Ayung River','Tirta Empul purification temple ritual','Tanah Lot coastal walk and temple visit','Kecak rehearsal at Uluwatu cliffs'],
+   eve:['Kecak fire dance at Uluwatu sunset','Night market at Seminyak Lane','Legong dance performance in Ubud','Sunset cocktails at Ku De Ta'],
+   rest:['Locavore Ubud (Asia Best)','Mozaic Restaurant Ubud','Merah Putih Seminyak','Swept Away Alila Ubud'],
+   cafe:['Seniman Coffee Ubud','Revolver Espresso Seminyak','Kynd Community Seminyak','Bali Buddha Health Café']},
+  {id:6,name:'Dubai',country:'UAE',cat:'Urban Luxury',rating:4.8,price:'$2,800+',currency:'Dirham (AED)',lang:'Arabic/English',best:'November–March',
+   desc:"Dubai is mankind's most audacious architectural experiment — a city that summoned forests of glass from desert sands in a single generation.",
+   att:['Burj Khalifa Top','Museum of the Future','Palm Jumeirah','Desert Safari','Dubai Creek Gold Souk','Burj Al Arab','Dubai Frame'],
+   imgs:['https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=800&q=80','https://images.unsplash.com/photo-1549429234-4b5f0516c1e3?w=600&q=80','https://images.unsplash.com/photo-1518684079-3c830dcef090?w=600&q=80','https://images.unsplash.com/photo-1526495124232-a04e1849168c?w=600&q=80'],
+   hotels:[{name:'Burj Al Arab Jumeirah',rating:5.0,price:2800,amenities:['Helipad','Gold Interiors','Private Beach','Michelin Dining'],imgs:['https://images.unsplash.com/photo-1582719508461-905c673771fd?w=600&q=80','https://images.unsplash.com/photo-1611892440504-42a792e24d32?w=400&q=80','https://images.unsplash.com/photo-1584132967334-10e028bd69f7?w=400&q=80'],rooms:[{t:'Deluxe Suite',p:2800},{t:'Club Suite',p:3500},{t:'Royal Suite',p:8500}]},{name:'Atlantis The Palm',rating:4.8,price:800,amenities:['Aquaventure Park','Underwater Hotel','14 Restaurants','Private Beach'],imgs:['https://images.unsplash.com/photo-1534430480872-3498386e7856?w=600&q=80','https://images.unsplash.com/photo-1566073771259-6a8506099945?w=400&q=80','https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?w=400&q=80'],rooms:[{t:'Ocean Room',p:800},{t:'Palm Suite',p:1400},{t:'Underwater Suite',p:6500}]}],
+   morn:['Sunrise desert photography tour','At the Top Burj Khalifa (9 AM skip queue)','Old Dubai Creek Abra ride & Spice Souk','Camel riding at Al Marmoom'],
+   aft:['Ski Dubai indoor slopes','Palm Jumeirah Monorail & Aquaventure','Museum of the Future immersive tour','Helicopter city skyline tour'],
+   eve:['Dubai Fountain show at Burj Lake','Dinner at At.mosphere (828m up)','Sunset dhow cruise on Dubai Creek','Gold Souk and Khan Murjan market'],
+   rest:['Nobu Atlantis','Pierchic Overwater Dining','Al Hadheerah Desert Restaurant','Ossiano Underwater Restaurant'],
+   cafe:['Arabian Tea House','Comptoir 102 Jumeirah','SLAB Coffee Dubai','The Sum of Us Dubai']},
+  {id:7,name:'Swiss Alps',country:'Switzerland',cat:'Mountain Majesty',rating:4.9,price:'$3,500+',currency:'Swiss Franc (CHF)',lang:'German/French/Italian',best:'Dec–Mar, Jun–Sep',
+   desc:"The Swiss Alps are the world's definitive mountain kingdom — an empire of ice and granite where the Matterhorn rises like a Gothic spire above cowbell-echoing meadows.",
+   att:['Matterhorn Views Zermatt','Jungfraujoch Top of Europe','Grindelwald First Cliff Walk','Lucerne Chapel Bridge','Lake Geneva','Aletsch Glacier','Harder Kulm Interlaken'],
+   imgs:['https://images.unsplash.com/photo-1531366936337-7c912a4589a7?w=800&q=80','https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=600&q=80','https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=600&q=80','https://images.unsplash.com/photo-1467994666594-40af6ac02f2c?w=600&q=80'],
+   hotels:[{name:'The Omnia Zermatt',rating:5.0,price:1400,amenities:['Matterhorn Panorama','Underground Spa',"Chef's Table",'Ski Concierge'],imgs:['https://images.unsplash.com/photo-1566073771259-6a8506099945?w=600&q=80','https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=400&q=80','https://images.unsplash.com/photo-1578683010236-d716f9a3f461?w=400&q=80'],rooms:[{t:'Rock Room',p:1400},{t:'Alpine Suite',p:2200},{t:'Sky Penthouse',p:4500}]},{name:'Grand Hotel Bellevue Grindelwald',rating:4.9,price:900,amenities:['Eiger Views','Heated Pool','Cheese Fondue Evening','Ski-in/Ski-out'],imgs:['https://images.unsplash.com/photo-1584132967334-10e028bd69f7?w=600&q=80','https://images.unsplash.com/photo-1568605114967-8130f3a36994?w=400&q=80','https://images.unsplash.com/photo-1612965607446-25e1332775ae?w=400&q=80'],rooms:[{t:'Classic Room',p:900},{t:'Junior Suite',p:1300},{t:'Grand Suite',p:2600}]}],
+   morn:['Jungfraujoch cogwheel train (depart 7:55 AM)','Matterhorn Glacier Paradise cable car sunrise','Grindelwald First Cliff Walk at opening','Cross-country ski trail to alpine hut'],
+   aft:['Paragliding over Lauterbrunnen Valley','Aletsch Glacier guided ice hike','Cheese fondue cooking class in Gruyères','Boat cruise on Lake Thun'],
+   eve:['Sunset at Harder Kulm viewpoint Interlaken','Raclette dinner at mountain chalet','Lucerne Old Town night walk','Swiss chocolate fondue evening ceremony'],
+   rest:['Chez Vrony Zermatt (Matterhorn views)','Restaurant Schilthorn Piz Gloria','Husi Bierhaus Grindelwald','Du Pont Lucerne'],
+   cafe:['Café du Glacier Grindelwald','Sprüngli Lucerne','Mountain Coffee Zermatt','Café Littéraire Lausanne']},
+  {id:8,name:'Rajasthan',country:'India',cat:'Royal India',rating:4.8,price:'₹80,000+',currency:'Indian Rupee (₹)',lang:'Hindi/Rajasthani',best:'October–March',
+   desc:"Rajasthan is India's most regal chapter — a land of colossal desert fortresses that glow amber at dusk, maharaja palaces converted into the world's most theatrical hotels.",
+   att:['Mehrangarh Fort Jodhpur','Amber Fort Jaipur','City Palace Udaipur','Jaisalmer Desert Fort','Ranthambore Tiger Reserve','Pushkar Camel Fair','Hawa Mahal'],
+   imgs:['https://images.unsplash.com/photo-1524492412937-b28074a5d7da?w=800&q=80','https://images.unsplash.com/photo-1599661046827-9c88df1489af?w=600&q=80','https://images.unsplash.com/photo-1587474260584-136574528ed5?w=600&q=80','https://images.unsplash.com/photo-1603262110263-fb0112e7cc33?w=600&q=80'],
+   hotels:[{name:'Umaid Bhawan Palace Jodhpur',rating:5.0,price:1200,amenities:['Marble Pool','Vintage Car Museum',"Spa by Raison d'Être",'Marwar Heritage Dining'],imgs:['https://images.unsplash.com/photo-1566073771259-6a8506099945?w=600&q=80','https://images.unsplash.com/photo-1584132967334-10e028bd69f7?w=400&q=80','https://images.unsplash.com/photo-1582719508461-905c673771fd?w=400&q=80'],rooms:[{t:'Heritage Room',p:1200},{t:'Maharaja Suite',p:2800},{t:'Royal Suite',p:5500}]},{name:'Taj Lake Palace Udaipur',rating:5.0,price:900,amenities:['Floating on Lake Pichola','White Marble Architecture','Neel Kamal Restaurant','Royal Courtyard Pool'],imgs:['https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=600&q=80','https://images.unsplash.com/photo-1578683010236-d716f9a3f461?w=400&q=80','https://images.unsplash.com/photo-1568605114967-8130f3a36994?w=400&q=80'],rooms:[{t:'Lake View Room',p:900},{t:'Grand Royal Suite',p:2200},{t:'Luxury Suite',p:1600}]}],
+   morn:['Mehrangarh Fort sunrise photography','Amber Fort elephant ride at 8 AM','Hot air balloon over Jaipur old city','Jaisalmer Desert sunrise camel ride'],
+   aft:['City Palace and Pichola Lake boat','Ranthambore tiger safari jeep tour','Stepwell (Chand Baori) exploration','Blue Pottery workshop in Jaipur'],
+   eve:['Sam Sand Dunes sunset camel safari','Bagore Ki Haveli cultural dance show','Udaipur Lake Pichola sunset cruise','Masala Chowk food walk Jaipur'],
+   rest:['Neel Kamal (Taj Lake Palace)','Raas Jodhpur Rooftop','Suvarna Mahal Jaipur','Natraj Dining Hall Jaisalmer'],
+   cafe:['Café Palladio Jaipur','Stepwell Café Jodhpur','Upre Lake View Udaipur','Gallery Café Jaipur']},
+  {id:9,name:'Kerala',country:'India',cat:"God's Own Country",rating:4.7,price:'₹55,000+',currency:'Indian Rupee (₹)',lang:'Malayalam/English',best:'September–March',
+   desc:"Kerala is India's answer to paradise — a narrow strip of tropical abundance wedged between the Western Ghats and the Arabian Sea, where 900km of backwater canals wind through coconut groves.",
+   att:['Alleppey Backwater Houseboat','Munnar Tea Estates','Periyar Tiger Reserve','Kovalam Beach','Athirapally Waterfalls','Fort Kochi Dutch Heritage','Wayanad Wildlife Sanctuary'],
+   imgs:['https://images.unsplash.com/photo-1602216056096-3b40cc0c9944?w=800&q=80','https://images.unsplash.com/photo-1585418777978-d6e1ca3efb5b?w=600&q=80','https://images.unsplash.com/photo-1614594975525-e45190c55d0b?w=600&q=80','https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=600&q=80'],
+   hotels:[{name:'Kumarakom Lake Resort',rating:5.0,price:450,amenities:['Vembanad Lake Views','Ayurvedic Spa','Heritage Villas','Traditional Kerala Cuisine'],imgs:['https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=600&q=80','https://images.unsplash.com/photo-1566073771259-6a8506099945?w=400&q=80','https://images.unsplash.com/photo-1563911302283-d2bc129e7570?w=400&q=80'],rooms:[{t:'Deluxe Room',p:450},{t:'Premium Villa',p:750},{t:'Heritage Villa',p:1200}]},{name:'Taj Beypore Kozhikode',rating:4.8,price:320,amenities:['Malabar Spice Garden','Calicut Beach Access','Seafood Dining','Yoga Pavilion'],imgs:['https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=600&q=80','https://images.unsplash.com/photo-1584132967334-10e028bd69f7?w=400&q=80','https://images.unsplash.com/photo-1578683010236-d716f9a3f461?w=400&q=80'],rooms:[{t:'Garden Room',p:320},{t:'Pool Cottage',p:520},{t:'Spice Suite',p:880}]}],
+   morn:['Alleppey backwater sunrise houseboat','Munnar tea estate walk at 7 AM','Periyar Lake boat safari for elephants','Kathakali make-up and morning class'],
+   aft:['Athirapally waterfall trek','Fort Kochi Jew Town and Spice Market','Coconut lagoon Kerala canoe trip','Keralan cooking class with spice market tour'],
+   eve:['Kathakali classical dance performance','Vembanad Lake sunset boat','Bekal Fort sunset and beach walk','Traditional Kalaripayattu martial arts show'],
+   rest:['Malabar Junction Kochi','Dal Roti Thiruvananthapuram','History Restaurant Kochi','Paragon Restaurant Kozhikode'],
+   cafe:["Kashi Art Café Kochi","Loafer's Corner Kozhikode",'David Hall Art Café','Tea Garden Munnar']},
+  {id:10,name:'Goa',country:'India',cat:'Coastal Paradise',rating:4.5,price:'₹30,000+',currency:'Indian Rupee (₹)',lang:'Konkani/English/Hindi',best:'November–March',
+   desc:"Goa is India's most hedonistic coastline — where Portuguese cathedrals share postcodes with trance music beach shacks and the late-afternoon light turns the Arabian Sea into hammered gold.",
+   att:['Calangute Beach','Old Goa UNESCO Churches','Spice Plantation Tour','Dudhsagar Waterfalls','Chapora Fort Sunset','Anjuna Flea Market','Palolem Beach'],
+   imgs:['https://images.unsplash.com/photo-1512343879784-a960bf40e7f2?w=800&q=80','https://images.unsplash.com/photo-1587474260584-136574528ed5?w=600&q=80','https://images.unsplash.com/photo-1605649461784-1dba3a2b4b40?w=600&q=80','https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=600&q=80'],
+   hotels:[{name:'Taj Exotica Benaulim',rating:5.0,price:380,amenities:['Beachfront Villas','6 Restaurants','Jiva Spa','Water Sports'],imgs:['https://images.unsplash.com/photo-1566073771259-6a8506099945?w=600&q=80','https://images.unsplash.com/photo-1582719508461-905c673771fd?w=400&q=80','https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=400&q=80'],rooms:[{t:'Luxury Room',p:380},{t:'Beach Villa',p:680},{t:'Presidential Suite',p:1800}]},{name:'W Goa Vagator',rating:4.8,price:290,amenities:['Infinity Pool','WET Bar','AWAY Spa','DJ Nights'],imgs:['https://images.unsplash.com/photo-1584132967334-10e028bd69f7?w=600&q=80','https://images.unsplash.com/photo-1578683010236-d716f9a3f461?w=400&q=80','https://images.unsplash.com/photo-1568605114967-8130f3a36994?w=400&q=80'],rooms:[{t:'Wonderful Room',p:290},{t:'Spectacular Suite',p:520},{t:'Extreme WOW Suite',p:1400}]}],
+   morn:['Sunrise yoga at Palolem silent beach','Old Goa Basilica of Bom Jesus visit 9 AM','Dudhsagar waterfall jeep safari','Spice plantation tour with lunch'],
+   aft:['Anjuna cliff beach and flea market','Chapora Fort and Vagator overlook','Goan cooking class at local home','Scuba diving at Grande Island'],
+   eve:["Sunset cruise on Mandovi River","Tito's Street Baga nightlife",'Shacks at Anjuna Beach bonfire','Casino cruise on Mandovi River'],
+   rest:['Gunpowder Assagao','Vinayak Restaurant Panaji','Ritz Classic Panaji','A Reverie Calangute'],
+   cafe:['Artjuna Garden Café','Pousada Tauma Calangute','Artsy Anjuna Café','Bean Me Up Morjim']},
+  {id:11,name:'Paris',country:'France',cat:'City of Light',rating:4.9,price:'$2,000+',currency:'Euro (€)',lang:'French',best:'April–June, Sept–Oct',
+   desc:"Paris is the world's most studied, painted, and philosophised city — a place where every arrondissement is a novel, every boulevard a catwalk, and every café terrace a stage.",
+   att:['Eiffel Tower','Louvre Museum','Palace of Versailles','Montmartre & Sacré-Cœur',"Musée d'Orsay",'Seine River Cruise','Le Marais District'],
+   imgs:['https://images.unsplash.com/photo-1502602898657-3e91760cbb34?w=800&q=80','https://images.unsplash.com/photo-1541778480-f7ef5f43b7b3?w=600&q=80','https://images.unsplash.com/photo-1566677914817-56426959ae9c?w=600&q=80','https://images.unsplash.com/photo-1499856871958-5b9627545d1a?w=600&q=80'],
+   hotels:[{name:'Le Meurice',rating:5.0,price:1500,amenities:['Versailles Décor','Alain Ducasse Restaurant','Tuileries Views','Art Deco Spa'],imgs:['https://images.unsplash.com/photo-1566073771259-6a8506099945?w=600&q=80','https://images.unsplash.com/photo-1578683010236-d716f9a3f461?w=400&q=80','https://images.unsplash.com/photo-1568605114967-8130f3a36994?w=400&q=80'],rooms:[{t:'Classic Room',p:1500},{t:'Junior Suite',p:2200},{t:'Belle Etoile Suite',p:5000}]},{name:'Hôtel Plaza Athénée',rating:4.9,price:1200,amenities:['Dior Spa','Avenue Montaigne','Eiffel Tower Views','Alain Ducasse Dining'],imgs:['https://images.unsplash.com/photo-1612965607446-25e1332775ae?w=600&q=80','https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=400&q=80','https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?w=400&q=80'],rooms:[{t:'Superior Room',p:1200},{t:'Eiffel Suite',p:2000},{t:'Royal Suite',p:6000}]}],
+   morn:['Eiffel Tower at sunrise (7:30 AM, no queues)','Croissant at local boulangerie in Marais','Louvre before crowds (9 AM entry)',"Morning Seine boat from Pont de l'Alma"],
+   aft:['Versailles Palace and gardens day trip',"Musée d'Orsay Impressionist gallery",'Galeries Lafayette rooftop view','Le Marais galleries and falafel'],
+   eve:['Eiffel Tower light show from Trocadéro','Seine dinner cruise (7 PM)','Opera Garnier evening performance','Jazz at Caveau de la Huchette'],
+   rest:["Le Grand Véfour (Napoleon's table)",'Guy Savoy (3 Michelin stars)','Septime bistronomy',"L'Ambroisie Place des Vosges"],
+   cafe:['Café de Flore','Les Deux Magots','Café Procope (oldest in Paris)','Angelina (famous hot chocolate)']},
+  {id:12,name:'Iceland',country:'Iceland',cat:'Arctic Wonder',rating:4.9,price:'$2,400+',currency:'Króna (ISK)',lang:'Icelandic/English',best:'Jun–Aug, Dec–Feb',
+   desc:"Iceland is a land assembled from extremes — geysers erupt beside glaciers, active volcanoes simmer under icecaps, and in winter the Northern Lights script aurora poetry across ink-black skies.",
+   att:['Northern Lights','Blue Lagoon Spa','Golden Circle Geysir','Jökulsárlón Glacier Lagoon','Snæfellsnes Peninsula','Skógafoss Waterfall','Askja Volcano'],
+   imgs:['https://images.unsplash.com/photo-1531168556467-80aace0d0144?w=800&q=80','https://images.unsplash.com/photo-1476610182048-b716b8518aae?w=600&q=80','https://images.unsplash.com/photo-1504893524553-b855bce32c67?w=600&q=80','https://images.unsplash.com/photo-1513519245088-0e12902e35ca?w=600&q=80'],
+   hotels:[{name:'The Retreat at Blue Lagoon',rating:5.0,price:1200,amenities:['Private Blue Lagoon','Lava Spa','In-water Bar','Moss Restaurant'],imgs:['https://images.unsplash.com/photo-1578683010236-d716f9a3f461?w=600&q=80','https://images.unsplash.com/photo-1568605114967-8130f3a36994?w=400&q=80','https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?w=400&q=80'],rooms:[{t:'Retreat Suite',p:1200},{t:'Blue Lagoon Suite',p:1800},{t:'Penthouse',p:3500}]},{name:'ION Adventure Hotel',rating:4.8,price:550,amenities:['Northern Lights Lounge','Geothermal Pool','Lava Restaurant','4x4 Expeditions'],imgs:['https://images.unsplash.com/photo-1584132967334-10e028bd69f7?w=600&q=80','https://images.unsplash.com/photo-1566073771259-6a8506099945?w=400&q=80','https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=400&q=80'],rooms:[{t:'Mountain Room',p:550},{t:'Superior Room',p:750},{t:'Lookout Room',p:950}]}],
+   morn:['Northern Lights snowmobile hunt (winter depart 10 PM)','Golden Circle: Geysir and Gullfoss waterfall','Glacier hiking on Sólheimajökull','Whale watching from Húsavík harbor'],
+   aft:['Blue Lagoon geothermal spa','Jökulsárlón glacier lagoon ice walk','Snorkeling in Silfra fissure Þingvellir','Landmannalaugar highland lava fields'],
+   eve:['Midnight sun photography (summer)','Aurora Borealis tour (Sep–Feb)','Reykjavík craft beer tour','Landmannalaugar hot spring bathing'],
+   rest:['Dill Restaurant (Nordic Michelin)','Matur og Drykkur heritage Icelandic','Fiskmarkaðurinn fish market cuisine','Grillhúsið Reykjavík'],
+   cafe:['Reykjavík Roasters','Kaffitár Coffee','Sandholt Bakery','Café Paris Reykjavík']},
+  {id:13,name:'Machu Picchu',country:'Peru',cat:'Ancient Wonder',rating:4.9,price:'$1,500+',currency:'Sol (PEN)',lang:'Spanish/Quechua',best:'May–September',
+   desc:"Machu Picchu materialises from the Andean mist like a vision — the 15th-century Inca citadel suspended 2,430 metres above sea level, never discovered by Spanish conquistadors.",
+   att:['Sun Gate (Inti Punku)','Huayna Picchu Summit','Temple of the Sun','Sacred Valley Pisac','Inca Bridge','Rainbow Mountain','Cusco Qorikancha'],
+   imgs:['https://images.unsplash.com/photo-1587595431973-160d0d94add1?w=800&q=80','https://images.unsplash.com/photo-1580619305218-8423a7ef79b4?w=600&q=80','https://images.unsplash.com/photo-1526392060635-9d6019884377?w=600&q=80','https://images.unsplash.com/photo-1518638150340-f706e86654de?w=600&q=80'],
+   hotels:[{name:'Belmond Sanctuary Lodge',rating:4.9,price:1100,amenities:['Machu Picchu Gate Access','Orchid Garden','Guided Hikes','Peruvian Cuisine'],imgs:['https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=600&q=80','https://images.unsplash.com/photo-1566073771259-6a8506099945?w=400&q=80','https://images.unsplash.com/photo-1612965607446-25e1332775ae?w=400&q=80'],rooms:[{t:'Deluxe Room',p:1100},{t:'Junior Suite',p:1600},{t:'Sanctuary Suite',p:2500}]},{name:'Inkaterra Machu Picchu Pueblo',rating:4.8,price:650,amenities:['Cloud Forest Setting','Orchid Collection','Aguas Calientes Spa','Birding Tours'],imgs:['https://images.unsplash.com/photo-1584132967334-10e028bd69f7?w=600&q=80','https://images.unsplash.com/photo-1578683010236-d716f9a3f461?w=400&q=80','https://images.unsplash.com/photo-1568605114967-8130f3a36994?w=400&q=80'],rooms:[{t:'Suite',p:650},{t:'Deluxe Suite',p:900},{t:'Casa Caretaker',p:1800}]}],
+   morn:['Enter Machu Picchu at 6 AM for sunrise','Huayna Picchu summit hike (book in advance)','Sun Gate Inti Punku morning trail','Guided tour of Temple of Sun & Royal Tomb'],
+   aft:['Sacred Valley towns of Pisac and Ollantaytambo','Intihuatana Stone and agricultural terraces','Rainbow Mountain day hike (Vinicunca)','Museum of Pre-Columbian Art Cusco'],
+   eve:['Pisco Sour tasting at Museo del Pisco','Traditional Andean dinner with live music','Planetarium Cusco star show','Qorikancha Temple by night tour'],
+   rest:["Central Lima (World's Best Restaurant)",'Maido Lima (Nikkei Cuisine)','MAP Café Cusco','Chicha por Gastón Acurio'],
+   cafe:['Café Inkaterra Aguas Calientes','Coffee Route Aguas Calientes','Café Cultural Rukmi Cusco','Al Grano Coffee Cusco']},
+  {id:14,name:'New York',country:'USA',cat:'Iconic Metropolis',rating:4.7,price:'$2,500+',currency:'US Dollar ($)',lang:'English',best:'April–June, Sept–Nov',
+   desc:"New York City is the world on a single island — the restless engine of global culture where eight million dreamers from every nation compress their ambitions into 300 square miles of vertical possibility.",
+   att:['Central Park','Metropolitan Museum of Art','High Line Park','Brooklyn Bridge Walk','Times Square','One World Observatory','The Vessel Hudson Yards'],
+   imgs:['https://images.unsplash.com/photo-1496442226666-8d4d0e62e6e9?w=800&q=80','https://images.unsplash.com/photo-1534430480872-3498386e7856?w=600&q=80','https://images.unsplash.com/photo-1522083165195-3424ed129620?w=600&q=80','https://images.unsplash.com/photo-1532960401447-7dd05bef20b0?w=600&q=80'],
+   hotels:[{name:'Aman New York',rating:5.0,price:3000,amenities:['Crown Building','Rooftop Pool','Jazz Club','Mediterranean Spa'],imgs:['https://images.unsplash.com/photo-1584132967334-10e028bd69f7?w=600&q=80','https://images.unsplash.com/photo-1568605114967-8130f3a36994?w=400&q=80','https://images.unsplash.com/photo-1612965607446-25e1332775ae?w=400&q=80'],rooms:[{t:'Studio',p:3000},{t:'One-Bedroom Suite',p:4500},{t:'Penthouse',p:12000}]},{name:'The Mark Hotel',rating:5.0,price:1400,amenities:['Jacques Garcia Design','Central Park Proximity','Jean-Georges Dining','Spa'],imgs:['https://images.unsplash.com/photo-1566073771259-6a8506099945?w=600&q=80','https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=400&q=80','https://images.unsplash.com/photo-1578683010236-d716f9a3f461?w=400&q=80'],rooms:[{t:'Guest Room',p:1400},{t:'Mark Suite',p:2200},{t:'Penthouse',p:6000}]}],
+   morn:['Central Park sunrise carriage ride','Met Museum first-entry (9:30 AM)','High Line walk Gansevoort to 34th','Brooklyn Bridge golden hour walk'],
+   aft:['MoMA modern art collection','One World Trade Observatory','Staten Island Ferry (free Statue of Liberty view)','Chelsea Market food hall'],
+   eve:['Broadway show in Midtown','Dinner at Eleven Madison Park','Top of the Rock at dusk','Jazz at Village Vanguard Greenwich Village'],
+   rest:['Eleven Madison Park (3 Michelin stars)','Le Bernardin seafood dining','Carbone Italian-American',"Katz's Delicatessen iconic"],
+   cafe:['Blue Bottle Coffee Williamsburg','Abraço NYC East Village','Café Grumpy Chelsea',"Jack's Wife Freda"]},
+  {id:15,name:'Prague',country:'Czech Republic',cat:'Fairy-tale City',rating:4.8,price:'$1,100+',currency:'Czech Koruna (CZK)',lang:'Czech',best:'April–June, Sept–Oct',
+   desc:"Prague is the fairy tale Europe keeps promising but rarely delivers — a city so perfectly preserved in Gothic and Baroque amber that every cobblestone lane and gaslit archway feels authored rather than built.",
+   att:['Prague Castle','Charles Bridge at Dawn','Astronomical Clock Show','Josefov Jewish Quarter','Petřín Hill Tower','Vyšehrad Fortress','Žižkov TV Tower'],
+   imgs:['https://images.unsplash.com/photo-1541849546-216549ae216d?w=800&q=80','https://images.unsplash.com/photo-1592906209472-a36b1f3782ef?w=600&q=80','https://images.unsplash.com/photo-1568096889942-6eedde686635?w=600&q=80','https://images.unsplash.com/photo-1555967522-37949fc21dcb?w=600&q=80'],
+   hotels:[{name:'Four Seasons Prague',rating:5.0,price:600,amenities:['Vltava River Views','CottoCrudo Restaurant','Spa','Charles Bridge Proximity'],imgs:['https://images.unsplash.com/photo-1566073771259-6a8506099945?w=600&q=80','https://images.unsplash.com/photo-1612965607446-25e1332775ae?w=400&q=80','https://images.unsplash.com/photo-1584132967334-10e028bd69f7?w=400&q=80'],rooms:[{t:'Superior Room',p:600},{t:'Executive Suite',p:950},{t:'Presidential Suite',p:2500}]},{name:'Augustine Prague',rating:4.9,price:420,amenities:['1300yr Monastery','Own Brewery','Garden Courtyard','Malá Strana Location'],imgs:['https://images.unsplash.com/photo-1578683010236-d716f9a3f461?w=600&q=80','https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=400&q=80','https://images.unsplash.com/photo-1568605114967-8130f3a36994?w=400&q=80'],rooms:[{t:'Superior Room',p:420},{t:'Junior Suite',p:680},{t:'Augustine Suite',p:1400}]}],
+   morn:['Prague Castle complex at 6 AM opening','Charles Bridge portrait walk at dawn','Old Jewish Cemetery and Josefov tour','Petřín Hill sunrise hike and tower'],
+   aft:['Astronomical Clock noon show & Old Town','Wenceslas Square and National Museum','Prague National Gallery Veletržní palác','Underground medieval tunnels tour'],
+   eve:['Ghost tour through Old Town alleyways','Czech beer evening at U Fleků (since 1499)','Classical concert at Municipal House','Vltava River dinner cruise'],
+   rest:['La Degustation (Michelin star)','Field Restaurant Czech cuisine','Lokál Lounge Czech classics','Augustine Monastery Restaurant'],
+   cafe:['Café Savoy (Art Nouveau)','EMA Espresso Bar','Kavárna co hledá jméno',"Café Louvre (Kafka's favorite)"]}
+];
+
+const FLIGHTS=[
+  {id:'f1',al:'Emirates Business Class',t:'08:00 → 14:30',dur:'6h 30m',feat:'Lie-flat seats · Gourmet dining · Wi-Fi',price:1800},
+  {id:'f2',al:'Qatar Airways QSuite',t:'10:15 → 17:00',dur:'6h 45m',feat:'Private suite · À la carte · Lounge access',price:2200},
+  {id:'f3',al:'Singapore Airlines Suites',t:'23:45 → 06:20+1',dur:'6h 35m',feat:'Private cabin · Chef meals · Champagne',price:3500},
+  {id:'f4',al:'Air France La Première',t:'07:30 → 14:00',dur:'6h 30m',feat:'Lounge · Chauffeur · Michelin menu',price:2800},
+  {id:'f5',al:'British Airways Club World',t:'12:00 → 19:15',dur:'7h 15m',feat:'Flat bed · Priority boarding · Lounge',price:1500},
+  {id:'f6',al:'Lufthansa Business',t:'06:00 → 13:30',dur:'7h 30m',feat:'Cradle seat · 3-course meal · Wi-Fi',price:1200},
+  {id:'f7',al:'Economy Value Plus',t:'15:45 → 23:30',dur:'7h 45m',feat:'Extra legroom · Meal · Entertainment',price:450},
+];
+const CARS=[
+  {id:'c1',name:'Mercedes-Benz S-Class',type:'Luxury Sedan',feat:'Leather · Sunroof · Drive Assist',price:180},
+  {id:'c2',name:'BMW 7 Series',type:'Executive Sedan',feat:'Massage seats · Ambient lighting',price:160},
+  {id:'c3',name:'Range Rover Autobiography',type:'Luxury SUV',feat:'Air suspension · Panoramic roof · 4WD',price:220},
+  {id:'c4',name:'Porsche Cayenne',type:'Sport SUV',feat:'Sport Chrono · Bose Sound · 21"',price:200},
+  {id:'c5',name:'Tesla Model S Plaid',type:'Electric Luxury',feat:'Autopilot · 0-60 1.99s · 17" screen',price:140},
+  {id:'c6',name:'Rolls-Royce Ghost',type:'Ultra Luxury',feat:'Starlight headliner · Champagne cooler',price:450},
+  {id:'c7',name:'Audi A8L',type:'Luxury Sedan',feat:'Night vision · Foot massage · Predictive',price:150},
+  {id:'c8',name:'Lexus LX600',type:'Premium SUV',feat:'Mark Levinson audio · VIP 4-seat mode',price:170},
+  {id:'c9',name:'Cadillac Escalade',type:'Full-size SUV',feat:'AKG audio · Night vision · Power steps',price:190},
+  {id:'c10',name:'Bentley Bentayga',type:'Ultra SUV',feat:'Naim audio · Mulliner finish · Rear ent.',price:380},
+];
+const BIKES=[
+  {id:'b1',name:'Ducati Multistrada V4',type:'Adventure Tourer',feat:'Radar · Cornering ABS · TFT',price:75},
+  {id:'b2',name:'Vespa Primavera 150',type:'Classic Scooter',feat:'Retro style · USB charging',price:25},
+  {id:'b3',name:'Royal Enfield Himalayan',type:'Adventure Bike',feat:'Off-road · GPS mount · Long range',price:35},
+  {id:'b4',name:'Harley Street Glide',type:'Touring Cruiser',feat:'Boom sound · Batwing fairing',price:90},
+  {id:'b5',name:'Honda PCX 160',type:'Urban Scooter',feat:'Fuel efficient · Under-seat storage',price:20},
+  {id:'b6',name:'BMW R 1250 GS',type:'Adventure Tourer',feat:'Telelever · Heated grips · Adaptive light',price:65},
+];
+
+const GUIDE_NAMES=[
+  ['Aria Stavros','Marco Papadopoulos','Nikos Alexiou'],['Aisha Rahman','Dhruv Patel','Layla Hassan'],
+  ['Yuki Tanaka','Haruto Sato','Mei Watanabe'],['Giovanni Ferrari','Sofia Conti','Luca Romano'],
+  ['Wayan Suara','Kadek Dewi','Made Widiana'],['Fatima Al-Rashid','Omar Sheikh','Priya Sharma'],
+  ['Elena Kessler','Hans Bruggmann','Sophie Müller'],['Priya Rajput','Arjun Singh','Ananya Rathore'],
+  ['Nair Suresh','Kavya Menon','Rajan Pillai'],["Rosa D'Souza",'Vikram Dessai','Anjali Naik'],
+  ['Sophie Laurent','Jean-Pierre Moreau','Isabelle Dubois'],['Sigrid Bjornsson','Erik Magnusson','Astrid Halvorsen'],
+  ['Carlos Quispe','Maria Elena Flores','Rodrigo Mamani'],['Madison Clarke','Tyler Brooks','Jasmine Rivera'],
+  ['Václav Novák','Jana Procházková','Tomáš Kovář']
+];
+const SPECS=['Cultural Expert','Food & Wine Guide','Adventure Specialist','History Scholar','Photography Pro'];
+const LANGS=[['English','Spanish','French'],['English','German'],['English','Japanese'],['Italian','English'],['Balinese','English','Dutch'],['Arabic','English'],['English','French','German'],['Hindi','English','Rajasthani'],['Malayalam','English'],['Konkani','Hindi','English']];
+const GPICS=[
+  'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=200&q=80',
+  'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&q=80',
+  'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=200&q=80',
+  'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=200&q=80',
+  'https://images.unsplash.com/photo-1527980965255-d3b416303d12?w=200&q=80',
+  'https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=200&q=80',
+  'https://images.unsplash.com/photo-1552058544-f2b08422138a?w=200&q=80',
+  'https://images.unsplash.com/photo-1546961342-ea5f62d5a27b?w=200&q=80',
+  'https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=200&q=80',
+];
+const ALL_GUIDES=[];
+DEST.forEach((d,di)=>{
+  const names=GUIDE_NAMES[di]||GUIDE_NAMES[0];
+  names.forEach((name,gi)=>{
+    ALL_GUIDES.push({id:`g${di}${gi}`,name,destId:d.id,destName:d.name,spec:SPECS[(di+gi)%SPECS.length],rating:(4.5+Math.random()*.5).toFixed(1),langs:(LANGS[(di+gi)%LANGS.length]).join(', '),ppd:120+(di*12)+(gi*22),img:GPICS[(di*3+gi)%GPICS.length]});
+  });
+});
+
+function genId(){ return 'WL'+Math.random().toString(36).substring(2,8).toUpperCase(); }
+
+/* ══════════════════ SIMULATED API CALLS ══════════════════════════════════ */
+const SimApi = {
+  async call(method, path, body=null, showLog=true) {
+    const logId = Date.now();
+    const start = Date.now();
+    if(showLog) addLog({id:logId, method, path, status:'pending', time:'…', ts:new Date().toLocaleTimeString()});
+    await randDelay();
+    const ms = Date.now()-start;
+    if(showLog) addLog({id:logId, method, path, status:'ok', time:`${ms}ms`, ts:new Date().toLocaleTimeString()});
+    return ok(body, '', 0);
+  },
+
+  async login(username, password) {
+    addLog({id:Date.now(),method:'POST',path:'/auth/login',status:'pending',time:'…',ts:new Date().toLocaleTimeString()});
+    await randDelay();
+    const user = USERS.find(u=>u.u===username&&u.p===password);
+    const id = Date.now();
+    if(!user){
+      addLog({id,method:'POST',path:'/auth/login',status:'err',time:'401',ts:new Date().toLocaleTimeString()});
+      return {ok:false,message:'Invalid credentials'};
+    }
+    const token = JwtSim.generate(username);
+    JwtSim.setToken(token);
+    addLog({id,method:'POST',path:'/auth/login',status:'ok',time:'201',ts:new Date().toLocaleTimeString()});
+    return {ok:true, token, username, userId:user.u==='Keerthi'?1:2};
+  },
+
+  async getDestinations(q='',cat='') {
+    await this.call('GET', `/destinations${q?`?q=${q}`:cat?`?category=${cat}`:''}`, null);
+    let list = [...DEST];
+    if(q) list = list.filter(d=>d.name.toLowerCase().includes(q.toLowerCase())||d.cat.toLowerCase().includes(q.toLowerCase())||d.country.toLowerCase().includes(q.toLowerCase()));
+    if(cat&&cat!=='All') list = list.filter(d=>d.cat===cat);
+    return list;
+  },
+
+  async getDestination(id) {
+    await this.call('GET',`/destinations/${id}`,null);
+    return DEST.find(d=>d.id===id)||null;
+  },
+
+  async createBooking(data) {
+    await this.call('POST','/bookings',data);
+    return {...data, bookingReference: genId(), status:'CONFIRMED', bookedAt: new Date().toISOString()};
+  },
+
+  async getBookings() {
+    await this.call('GET','/bookings',null);
+    return [];
+  },
+
+  async cancelBooking(ref) {
+    await this.call('PATCH',`/bookings/${ref}/cancel`,null);
+    return {bookingReference:ref, status:'CANCELLED'};
+  },
+
+  async createPackage(data) {
+    await this.call('POST','/packages',data);
+    return {...data, packageReference: genId(), status:'CONFIRMED', createdAt: new Date().toISOString()};
+  },
+
+  async getGuides(destId=null) {
+    await this.call('GET',`/guides${destId?`?destinationId=${destId}`:''}`,null);
+    return destId ? ALL_GUIDES.filter(g=>g.destId===destId) : ALL_GUIDES;
+  },
+
+  async createMemory(data) {
+    await this.call('POST','/vault',data);
+    return {...data, id:'m'+Date.now(), createdAt:new Date().toISOString()};
+  },
+
+  async updateMemory(id, data) {
+    await this.call('PUT',`/vault/${id}`,data);
+    return {...data, id, updatedAt:new Date().toISOString()};
+  },
+
+  async deleteMemory(id) {
+    await this.call('DELETE',`/vault/${id}`,null);
+    return true;
+  },
+
+  exportVault(mems) {
+    addLog({id:Date.now(),method:'GET',path:'/vault/export',status:'ok',time:'200',ts:new Date().toLocaleTimeString()});
+    const txt=mems.map(m=>`📍 ${m.loc}\n📅 ${m.date}\n\n${m.text}\n\n${'─'.repeat(50)}`).join('\n\n');
+    const blob=new Blob([`WanderLuxe Memory Vault\nExported: ${new Date().toLocaleDateString()}\n${'═'.repeat(50)}\n\n${txt}`],{type:'text/plain'});
+    const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='WanderLuxe_MemoryVault.txt';a.click();
+  }
+};
+
+/* ══════════════════ UI HELPERS ══════════════════════════════════════════ */
+function useToast() {
+  const [toasts,setToasts]=useState([]);
+  const show = useCallback((msg,type='success')=>{
+    const id=Date.now();
+    setToasts(p=>[...p,{id,msg,type}]);
+    setTimeout(()=>setToasts(p=>p.filter(t=>t.id!==id)),3500);
+  },[]);
+  return {toasts,show};
+}
+
+function Toasts({toasts}){
+  return(
+    <div className="toast-wrap">
+      {toasts.map(t=>(
+        <div key={t.id} className={`toast ${t.type}`}>
+          {t.type==='success'?'✅':t.type==='error'?'❌':'ℹ️'} {t.msg}
+        </div>
+      ))}
+    </div>
+  );
+}
+
+function ApiBanner(){
+  return(
+    <div className="api-banner online">
+      🟢 Spring Boot API · <span style={{opacity:.7}}>Simulated</span>
+    </div>
+  );
+}
+
+function ApiLog(){
+  const [logs,setLogs]=useState([]);
+  const [open,setOpen]=useState(true);
+  useEffect(()=>{
+    apiLogListeners.push(setLogs);
+    return ()=>{ apiLogListeners=apiLogListeners.filter(f=>f!==setLogs); };
+  },[]);
+  if(!logs.length) return null;
+  return(
+    <div className="api-log">
+      <div className="api-log-hdr" onClick={()=>setOpen(o=>!o)}>
+        <div className="api-log-title">⚡ API Requests <span style={{background:'var(--p1)',color:'#fff',borderRadius:20,padding:'0 .45rem',fontSize:'.68rem'}}>{logs.length}</span></div>
+        <span style={{color:'var(--text3)',fontSize:'.7rem'}}>{open?'▼':'▲'}</span>
+      </div>
+      {open&&(
+        <div className="api-log-body">
+          {logs.map(l=>(
+            <div key={l.id+l.ts} className={`api-log-entry ${l.status==='pending'?'req':l.status==='err'?'err':'res'}`}>
+              <span className={`log-method ${l.method}`}>{l.method}</span>
+              <span className="log-path" title={`${API_BASE}${l.path}`}>{l.path}</span>
+              <span className={`log-status ${l.status==='ok'?'ok':l.status==='err'?'err':'pending'}`}>{l.status==='ok'?'200':l.status==='pending'?'…':l.time}</span>
+              <span className="log-time">{l.ts}</span>
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
+
+function LoadingCard(){
+  return(
+    <div className="skel-card">
+      <div className="skel-img skeleton"/>
+      <div className="skel-body">
+        <div className="skel-line skeleton" style={{width:'80%'}}/>
+        <div className="skel-line skeleton"/>
+        <div className="skel-line skeleton short"/>
+      </div>
+    </div>
+  );
+}
+
+/* ══════════════════ COMPONENTS ══════════════════════════════════════════ */
+function LoginPage({onLogin}){
+  const [u,setU]=useState('');
+  const [p,setP]=useState('');
+  const [err,setErr]=useState('');
+  const [loading,setLoading]=useState(false);
+
+  const go=async()=>{
+    if(!u.trim()||!p.trim()){setErr('Please enter your username and password.');return;}
+    setLoading(true);setErr('');
+    const res = await SimApi.login(u,p);
+    setLoading(false);
+    if(res.ok){ onLogin(u,res.token); }
+    else { setErr('Invalid credentials. Please use the demo accounts below.'); }
+  };
+
+  return(
+    <div className="login-wrap">
+      <div className="login-orb" style={{width:500,height:500,background:'#8b5cf6',top:-100,right:-120,opacity:.22}}/>
+      <div className="login-orb" style={{width:350,height:350,background:'#ec4899',bottom:30,left:-80,opacity:.18}}/>
+      <div className="login-card">
+        <div className="login-logo">
+          <div className="login-logo-icon">👑</div>
+          <h1>WanderLuxe</h1>
+          <p>Your Luxury Travel Companion</p>
+        </div>
+        {/* API status */}
+        <div style={{textAlign:'center',marginBottom:'1.2rem'}}>
+          <span style={{display:'inline-flex',alignItems:'center',gap:'.4rem',padding:'.28rem .85rem',borderRadius:20,fontSize:'.72rem',fontWeight:700,background:'rgba(139,92,246,.15)',border:'1px solid rgba(139,92,246,.3)',color:'#a78bfa'}}>
+            ⚡ Spring Boot API · localhost:8080
+          </span>
+        </div>
+        <div className="fl">
+          <label>Username</label>
+          <input value={u} onChange={e=>setU(e.target.value)} placeholder="Enter username" onKeyDown={e=>e.key==='Enter'&&go()} disabled={loading}/>
+        </div>
+        <div className="fl">
+          <label>Password</label>
+          <input type="password" value={p} onChange={e=>setP(e.target.value)} placeholder="Enter password" onKeyDown={e=>e.key==='Enter'&&go()} disabled={loading}/>
+          {err&&<div className="err">{err}</div>}
+        </div>
+        <button className="login-btn" onClick={go} disabled={loading}>
+          {loading?<><span className="spinner" style={{width:16,height:16,borderWidth:2,margin:0}}/> Authenticating…</>:'Sign In →'}
+        </button>
+        {/* JWT display after login starts */}
+        {loading&&(
+          <div style={{marginTop:'1rem',background:'rgba(139,92,246,.08)',border:'1px solid rgba(139,92,246,.2)',borderRadius:10,padding:'.65rem .9rem'}}>
+            <div style={{fontSize:'.68rem',color:'rgba(255,255,255,.5)',marginBottom:'.25rem'}}>POST /api/auth/login</div>
+            <div style={{fontSize:'.7rem',color:'#a78bfa',wordBreak:'break-all',fontFamily:'monospace'}}>Generating JWT token…</div>
+          </div>
+        )}
+        <div className="hint-box">
+          <p>🔑 <strong>Demo Credentials</strong><br/>
+          Keerthi / <em>Keerthi@123</em><br/>
+          Akshitha / <em>Akshu@123</em></p>
+        </div>
+      </div>
+      <ApiLog/>
+    </div>
+  );
+}
+
+function Navbar({user,token,page,setPage,theme,toggleTheme,onLogout,mobOpen,setMobOpen}){
+  const links=['Home','Destinations','My Bookings','Guides','Trip Planner','Memory Vault'];
+  const shortToken = token ? token.substring(0,18)+'…' : '';
+  return(<>
+    <nav className="navbar">
+      <div className="nav-logo" onClick={()=>setPage('Home')}><span className="nav-logo-icon">👑</span><span className="nav-logo-text">WanderLuxe</span></div>
+      <div className="nav-links">{links.map(l=><button key={l} className={`nav-link${page===l?' active':''}`} onClick={()=>setPage(l)}>{l}</button>)}</div>
+      <div className="nav-right">
+        {token&&<div className="jwt-badge" title={`JWT: ${token}`}>🔐 {shortToken}</div>}
+        <div className="user-pill"><div className="user-av">{user[0]}</div><span>{user}</span></div>
+        <button className="icon-btn" onClick={toggleTheme}>{theme==='dark'?'☀️':'🌙'}</button>
+        <button className="logout-btn" onClick={onLogout}>Logout</button>
+        <button className="ham" onClick={()=>setMobOpen(!mobOpen)}><span/><span/><span/></button>
+      </div>
+    </nav>
+    <div className={`mob-menu${mobOpen?' open':''}`}>{links.map(l=><button key={l} className={`nav-link${page===l?' active':''}`} onClick={()=>{setPage(l);setMobOpen(false)}}>{l}</button>)}</div>
+  </>);
+}
+
+function HomePage({setPage,setSelDest,sq,setSq}){
+  const [dests,setDests]=useState([]);
+  const [loading,setLoading]=useState(true);
+
+  useEffect(()=>{
+    setLoading(true);
+    SimApi.getDestinations(sq).then(list=>{
+      setDests(list.slice(0,6));
+      setLoading(false);
+    });
+  },[sq]);
+
+  return(
+    <div className="page">
+      <section className="hero">
+        <div className="hero-orb" style={{width:700,height:700,background:'#8b5cf6',top:-250,right:-180}}/>
+        <div className="hero-orb" style={{width:450,height:450,background:'#ec4899',bottom:-120,left:-100}}/>
+        <div className="hero-content">
+          <div className="hero-badge">✈️ Premium Luxury Experiences</div>
+          <h1 className="hero-title">Discover Your Next<br/><span>Luxury Escape</span></h1>
+          <p className="hero-sub">Handcrafted journeys to the world's most extraordinary destinations — curated exclusively for the most discerning travelers.</p>
+          <div className="search-row">
+            <span className="search-icon">🔍</span>
+            <input className="search-input" placeholder="Search destinations, categories…" value={sq} onChange={e=>setSq(e.target.value)}/>
+            <button className="btn btn-primary btn-sm" onClick={()=>setPage('Destinations')}>Explore</button>
+          </div>
+          <div className="stats-row">
+            {[['15+','Luxury Destinations'],['50k+','Happy Travelers'],['30+','Premium Hotels'],['45','Expert Guides']].map(([n,l])=>(
+              <div key={l} className="stat"><div className="n">{n}</div><div className="l">{l}</div></div>
+            ))}
+          </div>
+        </div>
+      </section>
+      <section className="section">
+        <div className="container">
+          <div className="sec-header">
+            <div className="sec-tag">✨ FEATURED</div>
+            <h2 className="sec-title">Handpicked Destinations</h2>
+            <p className="sec-sub">From Aegean caldera cliffs to Kerala backwaters — extraordinary awaits.</p>
+          </div>
+          {loading?(
+            <div className="grid3">{[1,2,3,4,5,6].map(i=><LoadingCard key={i}/>)}</div>
+          ):(
+            <>
+              <div className="grid3">
+                {dests.map(d=>(
+                  <div key={d.id} className="dest-card fade-in" onClick={()=>{setSelDest(d);setPage('Detail');}}>
+                    <div className="card-img"><img src={d.imgs[0]} alt={d.name} loading="lazy"/><div className="card-badge">{d.cat}</div></div>
+                    <div className="card-body">
+                      <div className="card-name">{d.name}, {d.country}</div>
+                      <div className="card-desc">{d.desc}</div>
+                      <div className="card-foot"><div className="rating">⭐ {d.rating}</div><div className="price">{d.price}</div></div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+              {dests.length===0&&<p style={{textAlign:'center',color:'var(--text3)',padding:'3rem'}}>No destinations found for "{sq}"</p>}
+            </>
+          )}
+          <div style={{textAlign:'center',marginTop:'2.5rem'}}><button className="btn btn-primary" onClick={()=>setPage('Destinations')}>View All 15 Destinations →</button></div>
+        </div>
+      </section>
+    </div>
+  );
+}
+
+function DestPage({setPage,setSelDest}){
+  const [q,setQ]=useState('');
+  const [cat,setCat]=useState('All');
+  const [list,setList]=useState([]);
+  const [loading,setLoading]=useState(true);
+  const cats=['All',...[...new Set(DEST.map(d=>d.cat))]];
+
+  useEffect(()=>{
+    setLoading(true);
+    SimApi.getDestinations(q,cat).then(res=>{setList(res);setLoading(false);});
+  },[q,cat]);
+
+  return(
+    <div className="page">
+      <section className="section">
+        <div className="container">
+          <div className="sec-header">
+            <div className="sec-tag">🌍 ALL DESTINATIONS</div>
+            <h2 className="sec-title">Explore the World</h2>
+            <p className="sec-sub">15 curated luxury destinations across 4 continents.</p>
+          </div>
+          <div style={{maxWidth:600,margin:'0 auto 1.8rem',display:'flex',gap:'.7rem'}}>
+            <input className="vault-input" style={{flex:1}} placeholder="Search by name or country…" value={q} onChange={e=>setQ(e.target.value)}/>
+          </div>
+          <div className="tabs-row" style={{justifyContent:'center',marginBottom:'2rem'}}>
+            {cats.map(c=><button key={c} className={`tab-btn${cat===c?' active':''}`} onClick={()=>setCat(c)}>{c}</button>)}
+          </div>
+          {loading?(
+            <div className="grid3">{[1,2,3,4,5,6].map(i=><LoadingCard key={i}/>)}</div>
+          ):(
+            <div className="grid3">
+              {list.map(d=>(
+                <div key={d.id} className="dest-card fade-in" onClick={()=>{setSelDest(d);setPage('Detail');}}>
+                  <div className="card-img"><img src={d.imgs[0]} alt={d.name} loading="lazy"/><div className="card-badge">{d.cat}</div></div>
+                  <div className="card-body">
+                    <div className="card-name">{d.name}, {d.country}</div>
+                    <div className="card-desc">{d.desc}</div>
+                    <div className="card-foot"><div className="rating">⭐ {d.rating}</div><div className="price">{d.price}</div></div>
+                  </div>
+                </div>
+              ))}
+              {list.length===0&&<p style={{textAlign:'center',color:'var(--text3)',padding:'3rem',gridColumn:'1/-1'}}>No destinations found.</p>}
+            </div>
+          )}
+        </div>
+      </section>
+    </div>
+  );
+}
+
+function DetailPage({dest,setPage,addBooking,showToast}){
+  const [bHotel,setBHotel]=useState(null);
+  const [loading,setLoading]=useState(true);
+  useEffect(()=>{ SimApi.getDestination(dest.id).then(()=>setLoading(false)); },[dest.id]);
+
+  if(loading) return(
+    <div className="page">
+      <div className="detail-wrap">
+        <div className="spin-wrap"><div className="spinner"/><div className="spin-txt">Loading destination data…</div></div>
+      </div>
+    </div>
+  );
+
+  return(
+    <div className="page">
+      <div className="detail-wrap">
+        <button className="back-btn" onClick={()=>setPage('Destinations')}>← Back to Destinations</button>
+        <div className="gallery">{dest.imgs.map((img,i)=><img key={i} src={img} alt={dest.name} loading="lazy"/>)}</div>
+        <div className="detail-layout">
+          <div>
+            <div className="sec-tag">{dest.cat}</div>
+            <h2 className="about-title">{dest.name}, {dest.country}</h2>
+            <p className="about-text">{dest.desc}</p>
+            <div className="att-title">🏛️ Top Attractions</div>
+            <div className="tags">{dest.att.map(a=><span key={a} className="tag">{a}</span>)}</div>
+          </div>
+          <div>
+            <div className="info-card">
+              <h3>Travel Info</h3>
+              {[['⭐ Rating',`${dest.rating} / 5.0`],['💰 Price Range',dest.price],['🗓️ Best Time',dest.best],['🗣️ Language',dest.lang],['💱 Currency',dest.currency]].map(([l,v])=>(
+                <div key={l} className="irow"><span className="ilabel">{l}</span><span className="ivalue">{v}</span></div>
+              ))}
+              <button className="btn btn-primary" style={{width:'100%',marginTop:'.9rem'}} onClick={()=>setPage('Trip Planner')}>Plan a Trip ✈️</button>
+            </div>
+          </div>
+        </div>
+        <div>
+          <h3 style={{fontFamily:"'Cormorant Garamond',serif",fontSize:'1.55rem',fontWeight:700,color:'var(--text)',marginBottom:'1.3rem'}}>🏨 Luxury Hotels</h3>
+          <div className="hotels-grid">
+            {dest.hotels.map((h,i)=>(
+              <div key={i} className="hotel-card">
+                <div className="h-imgs">{h.imgs.map((img,j)=><img key={j} src={img} alt={h.name} loading="lazy"/>)}</div>
+                <div className="h-body">
+                  <div className="h-name">{h.name}</div>
+                  <div className="h-rating">{'⭐'.repeat(Math.floor(h.rating))} {h.rating}</div>
+                  <div className="amenities">{h.amenities.map(a=><span key={a} className="am">{a}</span>)}</div>
+                  <div className="h-foot">
+                    <div className="h-price">${h.price}<sub>/night</sub></div>
+                    <button className="btn btn-primary btn-sm" onClick={()=>setBHotel({...h,destName:dest.name})}>View Rooms</button>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+      {bHotel&&<BookingModal hotel={bHotel} onClose={()=>setBHotel(null)} onConfirm={async(b)=>{
+        const res = await SimApi.createBooking(b);
+        addBooking({...b, id:res.bookingReference});
+        setBHotel(null);
+        showToast(`Booking confirmed! Ref: ${res.bookingReference}`,'success');
+      }}/>}
+    </div>
+  );
+}
+
+function BookingModal({hotel,onClose,onConfirm}){
+  const [step,setStep]=useState(1);
+  const [room,setRoom]=useState(hotel.rooms[0]);
+  const [form,setForm]=useState({name:'',email:'',phone:'',ci:'',co:'',guests:'2'});
+  const [errs,setErrs]=useState({});
+  const [bid]=useState(genId);
+  const [saving,setSaving]=useState(false);
+
+  const nights=()=>{if(!form.ci||!form.co)return 0;const d=new Date(form.co)-new Date(form.ci);return Math.max(0,Math.floor(d/(86400000)));};
+  const total=room.p*Math.max(1,nights());
+
+  const validate=()=>{
+    const e={};
+    if(!form.name.trim())e.name='Required';
+    if(!form.email.includes('@'))e.email='Valid email required';
+    if(form.phone.length<7)e.phone='Valid phone required';
+    if(!form.ci)e.ci='Required';
+    if(!form.co||form.co<=form.ci)e.co='Must be after check-in';
+    setErrs(e);return Object.keys(e).length===0;
+  };
+
+  const confirm=async()=>{
+    if(!validate())return;
+    setSaving(true);
+    await onConfirm({id:bid,hotel:hotel.name,dest:hotel.destName,...form,room:room.t,total,nights:nights()});
+    setSaving(false);
+    setStep(3);
+  };
+
+  return(
+    <div className="overlay" onClick={e=>e.target===e.currentTarget&&onClose()}>
+      <div className="modal">
+        <div className="modal-hdr">
+          <div className="modal-title">Book {hotel.name}</div>
+          <button className="close-btn" onClick={onClose}>✕</button>
+        </div>
+        <div className="modal-steps">
+          {['Hotel Details','Booking Form','Confirmation'].map((s,i)=><div key={s} className={`m-step${step===i+1?' active':step>i+1?' done':''}`}>{i+1}. {s}</div>)}
+        </div>
+        <div className="modal-body">
+          {step===1&&(<>
+            <div className="m-imgs">{hotel.imgs.map((img,i)=><img key={i} src={img} alt={hotel.name}/>)}</div>
+            <strong style={{color:'var(--text)'}}>{hotel.name}</strong>
+            <div style={{color:'var(--gold)',margin:'.35rem 0 .7rem',fontSize:'.83rem'}}>{'⭐'.repeat(Math.floor(hotel.rating))} {hotel.rating}</div>
+            <div style={{fontSize:'.82rem',fontWeight:700,color:'var(--text)',marginBottom:'.45rem'}}>Amenities</div>
+            <div className="amenities" style={{marginBottom:'1rem'}}>{hotel.amenities.map(a=><span key={a} className="am">{a}</span>)}</div>
+            <div style={{fontSize:'.82rem',fontWeight:700,color:'var(--text)',marginBottom:'.45rem'}}>Select Room Type</div>
+            <div className="room-list">{hotel.rooms.map(r=>(
+              <div key={r.t} className={`r-opt${room.t===r.t?' sel':''}`} onClick={()=>setRoom(r)}>
+                <div className="r-name">{r.t}</div><div className="r-price">${r.p}/night</div>
+              </div>
+            ))}</div>
+          </>)}
+          {step===2&&(<>
+            {[['name','Full Name','text','Your full name'],['email','Email','email','your@email.com'],['phone','Phone','tel','+91 98765 43210']].map(([k,lbl,tp,ph])=>(
+              <div key={k} className="ff"><label>{lbl}</label><input type={tp} placeholder={ph} value={form[k]} onChange={e=>setForm({...form,[k]:e.target.value})}/>{errs[k]&&<div className="err">{errs[k]}</div>}</div>
+            ))}
+            <div className="form2">
+              <div className="ff"><label>Check-in Date</label><input type="date" value={form.ci} min={new Date().toISOString().split('T')[0]} onChange={e=>setForm({...form,ci:e.target.value})}/>{errs.ci&&<div className="err">{errs.ci}</div>}</div>
+              <div className="ff"><label>Check-out Date</label><input type="date" value={form.co} min={form.ci||new Date().toISOString().split('T')[0]} onChange={e=>setForm({...form,co:e.target.value})}/>{errs.co&&<div className="err">{errs.co}</div>}</div>
+            </div>
+            <div className="ff"><label>Guests</label><select value={form.guests} onChange={e=>setForm({...form,guests:e.target.value})}>{[1,2,3,4,5,6].map(n=><option key={n}>{n}</option>)}</select></div>
+            <div className="ff"><label>Room Type</label><select value={room.t} onChange={e=>setRoom(hotel.rooms.find(r=>r.t===e.target.value))}>{hotel.rooms.map(r=><option key={r.t}>{r.t}</option>)}</select></div>
+            {nights()>0&&<div style={{background:'var(--bg3)',borderRadius:12,padding:'1rem',textAlign:'center',marginTop:'.5rem'}}>
+              <div style={{fontSize:'.78rem',color:'var(--text3)',marginBottom:'.2rem'}}>{nights()} night{nights()>1?'s':''} total</div>
+              <div style={{fontSize:'1.4rem',fontWeight:800,color:'var(--p1)'}}>${total.toLocaleString()}</div>
+            </div>}
+            {/* Simulated request preview */}
+            <div style={{marginTop:'1rem',background:'var(--bg2)',borderRadius:10,padding:'.8rem',border:'1px solid var(--border)'}}>
+              <div style={{fontSize:'.68rem',fontWeight:700,color:'var(--text3)',marginBottom:'.35rem'}}>POST /api/bookings · Authorization: Bearer JWT</div>
+              <div style={{fontSize:'.7rem',color:'var(--text3)',fontFamily:'monospace',lineHeight:1.6}}>
+                {`{ hotelId, roomTypeId, checkIn: "${form.ci||'…'}", checkOut: "${form.co||'…'}", guests: ${form.guests} }`}
+              </div>
+            </div>
+          </>)}
+          {step===3&&(
+            <div className="confirm-ctr">
+              <div className="conf-icon">🎉</div>
+              <div className="conf-badge" style={{margin:'0 auto .9rem',display:'inline-flex'}}>✓ Confirmed</div>
+              <div className="conf-id">Booking Reference: <strong>{bid}</strong></div>
+              <div className="conf-hname">{hotel.name}</div>
+              <div className="conf-table">
+                {[['Guest',form.name],['Email',form.email],['Check-in',form.ci],['Check-out',form.co],['Room',room.t],['Nights',nights()],['Guests',form.guests],['Total','$'+total.toLocaleString()]].map(([l,v])=>(
+                  <div key={l} className="ctr"><span className="ct-l">{l}</span><span>{v}</span></div>
+                ))}
+              </div>
+              <p style={{fontSize:'.8rem',color:'var(--text3)'}}>✅ Saved to My Bookings. Check "My Bookings" tab.</p>
+            </div>
+          )}
+        </div>
+        <div className="modal-foot">
+          {step===1&&<><button className="btn btn-outline" onClick={onClose}>Cancel</button><button className="btn btn-primary" onClick={()=>setStep(2)}>Continue →</button></>}
+          {step===2&&<><button className="btn btn-outline" onClick={()=>setStep(1)}>← Back</button><button className="btn btn-primary" onClick={confirm} disabled={saving}>{saving?<><span className="spinner" style={{width:14,height:14,borderWidth:2,margin:0}}/> Saving…</>:'Confirm Booking'}</button></>}
+          {step===3&&<button className="btn btn-primary" style={{width:'100%'}} onClick={onClose}>Done 🎉</button>}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function BookingsPage({bookings,packages,setPage}){
+  const [tab,setTab]=useState('hotels');
+  return(
+    <div className="page">
+      <section className="section">
+        <div className="container">
+          <div className="sec-header">
+            <div className="sec-tag">📋 MY TRIPS</div>
+            <h2 className="sec-title">My Bookings</h2>
+            <p className="sec-sub" style={{margin:'0 auto'}}>Synced with Spring Boot API · GET /api/bookings</p>
+          </div>
+          <div className="tabs-row">
+            <button className={`tab-btn${tab==='hotels'?' active':''}`} onClick={()=>setTab('hotels')}>🏨 Hotel Bookings ({bookings.length})</button>
+            <button className={`tab-btn${tab==='packages'?' active':''}`} onClick={()=>setTab('packages')}>✈️ Travel Packages ({packages.length})</button>
+          </div>
+          {tab==='hotels'&&(bookings.length===0?(
+            <div className="empty-state">
+              <div className="empty-icon">📅</div>
+              <h3 style={{color:'var(--text)',marginBottom:'.5rem'}}>No hotel bookings yet</h3>
+              <p style={{color:'var(--text3)',marginBottom:'1.4rem'}}>Browse luxury hotels at your dream destinations.</p>
+              <button className="btn btn-primary" onClick={()=>setPage('Destinations')}>🌍 Explore Destinations</button>
+            </div>
+          ):(
+            <div className="grid3">
+              {bookings.map(b=>(
+                <div key={b.id} className="booking-card fade-in">
+                  <div className="bk-id">Booking Ref: {b.id}</div>
+                  <div className="bk-name">{b.hotel}</div>
+                  <div className="bk-dest">📍 {b.dest}</div>
+                  <div className="bk-grid">
+                    {[['Guest',b.name],['Room',b.room],['Check-in',b.ci||b.checkin],['Check-out',b.co||b.checkout],['Guests',b.guests+' person'+(b.guests>1?'s':'')],['Nights',b.nights+' night'+(b.nights>1?'s':'')]].map(([l,v])=>(
+                      <div key={l} className="bk-field"><div className="bfl">{l}</div><div className="bfv">{v}</div></div>
+                    ))}
+                  </div>
+                  <div className="bk-total">Total: ${b.total?.toLocaleString()} <span className="conf-badge">✓ Confirmed</span></div>
+                </div>
+              ))}
+            </div>
+          ))}
+          {tab==='packages'&&(packages.length===0?(
+            <div className="empty-state">
+              <div className="empty-icon">✈️</div>
+              <h3 style={{color:'var(--text)',marginBottom:'.5rem'}}>No travel packages yet</h3>
+              <p style={{color:'var(--text3)',marginBottom:'1.4rem'}}>Use the Smart Trip Planner to create your perfect itinerary.</p>
+              <button className="btn btn-primary" onClick={()=>setPage('Trip Planner')}>🗺️ Open Trip Planner</button>
+            </div>
+          ):(
+            <div className="grid3">
+              {packages.map(pkg=>(
+                <div key={pkg.id} className="pkg-card fade-in">
+                  <div className="bk-id">Package Ref: {pkg.id}</div>
+                  <div className="pkg-title">{pkg.dest} — {pkg.days}-Day Luxury Trip</div>
+                  <div className="pkg-dest">✈️ {pkg.flight} · 🚗 {pkg.vehicle}</div>
+                  <div className="pkg-details">
+                    {[['Hotel',pkg.hotel],['Duration',pkg.days+' Days'],['Budget',pkg.budget],['Interests',pkg.interests?.join(', ')],['Booked on',pkg.bookedOn]].map(([l,v])=>(
+                      <div key={l} className="pkg-field"><div className="pfl">{l}</div><div className="pfv">{v||'–'}</div></div>
+                    ))}
+                  </div>
+                  <div className="pkg-cost">Total Estimated: ${pkg.total?.toLocaleString()} <span className="conf-badge">✓ Confirmed</span></div>
+                </div>
+              ))}
+            </div>
+          ))}
+        </div>
+      </section>
+    </div>
+  );
+}
+
+function GuidesPage({showToast}){
+  const [filter,setFilter]=useState('All');
+  const [guides,setGuides]=useState([]);
+  const [loading,setLoading]=useState(true);
+  const dests=['All',...DEST.map(d=>d.name)];
+
+  useEffect(()=>{
+    setLoading(true);
+    const destId = filter==='All'?null:DEST.find(d=>d.name===filter)?.id;
+    SimApi.getGuides(destId).then(list=>{setGuides(list);setLoading(false);});
+  },[filter]);
+
+  return(
+    <div className="page">
+      <section className="section">
+        <div className="container">
+          <div className="sec-header">
+            <div className="sec-tag">🧭 EXPERT GUIDES</div>
+            <h2 className="sec-title">Local Expert Guides</h2>
+            <p className="sec-sub">45 handpicked specialists who transform destinations into living stories.</p>
+          </div>
+          <div className="tabs-row" style={{justifyContent:'center',flexWrap:'wrap',marginBottom:'2rem'}}>
+            {dests.map(d=><button key={d} className={`tab-btn${filter===d?' active':''}`} onClick={()=>setFilter(d)}>{d}</button>)}
+          </div>
+          {loading?(
+            <div className="spin-wrap"><div className="spinner"/><div className="spin-txt">Loading guides from API…</div></div>
+          ):(
+            <div className="grid4">
+              {guides.map(g=>(
+                <div key={g.id} className="guide-card fade-in">
+                  <img className="g-img" src={g.img} alt={g.name} loading="lazy"/>
+                  <div className="g-name">{g.name}</div>
+                  <div className="g-spec">{g.spec}</div>
+                  <div className="g-loc">📍 {g.destName}</div>
+                  <div className="g-rating">{'⭐'.repeat(Math.floor(g.rating))} {g.rating}</div>
+                  <div className="g-langs">🗣️ {g.langs}</div>
+                  <div className="g-price">${g.ppd}<sub>/day</sub></div>
+                  <button className="book-g-btn" onClick={()=>showToast(`Guide booking request sent for ${g.name}!`,'info')}>Book Guide</button>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+      </section>
+    </div>
+  );
+}
+
+function PlannerPage({addPackage,showToast}){
+  const [step,setStep]=useState(1);
+  const [dest,setDest]=useState(DEST[0]);
+  const [days,setDays]=useState(5);
+  const [budget,setBudget]=useState('Luxury');
+  const [ints,setInts]=useState(['Culture','Food']);
+  const [flight,setFlight]=useState(FLIGHTS[0]);
+  const [vType,setVType]=useState('car');
+  const [vehicle,setVehicle]=useState(CARS[0]);
+  const [itin,setItin]=useState(null);
+  const [done,setDone]=useState(false);
+  const [saving,setSaving]=useState(false);
+
+  const toggleInt=i=>setInts(p=>p.includes(i)?p.filter(x=>x!==i):[...p,i]);
+
+  const generate=async()=>{
+    await SimApi.call('POST','/planner/generate',{destId:dest.id,days,budget,interests:ints});
+    const days_arr=[];
+    for(let d=1;d<=days;d++){
+      days_arr.push({day:d,morn:dest.morn[(d-1)%dest.morn.length],lunch:dest.rest[(d-1)%dest.rest.length],aft:dest.aft[(d-1)%dest.aft.length],cafe:dest.cafe[(d-1)%dest.cafe.length],eve:dest.eve[(d-1)%dest.eve.length]});
+    }
+    setItin(days_arr);setStep(4);
+  };
+
+  const hCost=dest.hotels[0].price*days;
+  const vCost=vehicle.price*days;
+  const total=flight.price+hCost+vCost;
+
+  const bookTrip=async()=>{
+    setSaving(true);
+    const res = await SimApi.createPackage({destId:dest.id,dest:dest.name,days,budget,interests:ints,flight:flight.al,vehicle:vehicle.name,hotel:dest.hotels[0].name,total});
+    addPackage({id:res.packageReference,dest:dest.name,days,budget,interests:ints,flight:flight.al,vehicle:vehicle.name,hotel:dest.hotels[0].name,total,bookedOn:new Date().toLocaleDateString()});
+    setSaving(false);
+    setDone(true);
+    showToast(`Trip package confirmed! Ref: ${res.packageReference}`,'success');
+  };
+
+  return(
+    <div className="page">
+      <section className="section">
+        <div className="container">
+          <div className="sec-header">
+            <div className="sec-tag">🗺️ SMART PLANNER</div>
+            <h2 className="sec-title">Smart Trip Planner</h2>
+            <p className="sec-sub">Build your perfect luxury itinerary in four guided steps.</p>
+          </div>
+          <div className="planner-wrap">
+            <div className="prog-bar">
+              {['Plan','Flights','Transport','Itinerary'].map((s,i)=>(
+                <div key={s} className={`prog-step${step===i+1?' active':step>i+1?' done':''}`}>
+                  <div className="prog-dot">{step>i+1?'✓':i+1}</div>
+                  <div className="prog-lbl">{s}</div>
+                </div>
+              ))}
+            </div>
+            {step===1&&(
+              <div className="plan-card fade-in">
+                <h2>Plan Your Trip</h2>
+                <div className="ff"><label>Choose Destination</label>
+                  <select value={dest.id} onChange={e=>setDest(DEST.find(d=>d.id===parseInt(e.target.value)))}>
+                    {DEST.map(d=><option key={d.id} value={d.id}>{d.name}, {d.country}</option>)}
+                  </select>
+                </div>
+                <div className="form2">
+                  <div className="ff"><label>Duration: {days} days</label><input type="range" min={3} max={14} value={days} onChange={e=>setDays(+e.target.value)} style={{padding:'.2rem 0'}}/></div>
+                  <div className="ff"><label>Budget Level</label><select value={budget} onChange={e=>setBudget(e.target.value)}>{['Budget','Mid-Range','Luxury','Ultra-Luxury'].map(b=><option key={b}>{b}</option>)}</select></div>
+                </div>
+                <div className="ff"><label>Interests</label>
+                  <div className="int-grid">{['Adventure','Culture','Food','Nature','Relaxation','Shopping','Nightlife','History'].map(i=>(
+                    <div key={i} className={`int-chip${ints.includes(i)?' sel':''}`} onClick={()=>toggleInt(i)}>{i}</div>
+                  ))}</div>
+                </div>
+                <div className="pnav"><div/><button className="btn btn-primary" onClick={()=>setStep(2)}>Choose Flight →</button></div>
+              </div>
+            )}
+            {step===2&&(
+              <div className="plan-card fade-in">
+                <h2>Choose Your Flight</h2>
+                {FLIGHTS.map(f=>(
+                  <div key={f.id} className={`opt-card${flight.id===f.id?' sel':''}`} onClick={()=>setFlight(f)}>
+                    <div className="opt-radio"/>
+                    <div className="opt-info"><div className="opt-name">{f.al}</div><div className="opt-detail">🕐 {f.t} · ⏱ {f.dur} · {f.feat}</div></div>
+                    <div className="opt-price">${f.price}</div>
+                  </div>
+                ))}
+                <div className="pnav"><button className="btn btn-outline" onClick={()=>setStep(1)}>← Back</button><button className="btn btn-primary" onClick={()=>setStep(3)}>Choose Transport →</button></div>
+              </div>
+            )}
+            {step===3&&(
+              <div className="plan-card fade-in">
+                <h2>Choose Transport</h2>
+                <div className="tabs-row" style={{marginBottom:'1.1rem'}}>
+                  <button className={`tab-btn${vType==='car'?' active':''}`} onClick={()=>{setVType('car');setVehicle(CARS[0]);}}>🚗 Cars ({CARS.length})</button>
+                  <button className={`tab-btn${vType==='bike'?' active':''}`} onClick={()=>{setVType('bike');setVehicle(BIKES[0]);}}>🏍️ Two-Wheelers ({BIKES.length})</button>
+                </div>
+                <div style={{maxHeight:400,overflowY:'auto'}}>
+                  {(vType==='car'?CARS:BIKES).map(v=>(
+                    <div key={v.id} className={`opt-card${vehicle.id===v.id?' sel':''}`} onClick={()=>setVehicle(v)}>
+                      <div className="opt-radio"/>
+                      <div className="opt-info"><div className="opt-name">{v.name}</div><div className="opt-detail">{v.type} · {v.feat}</div></div>
+                      <div className="opt-price">${v.price}/day</div>
+                    </div>
+                  ))}
+                </div>
+                <div className="pnav"><button className="btn btn-outline" onClick={()=>setStep(2)}>← Back</button><button className="btn btn-primary" onClick={generate}>Generate Itinerary →</button></div>
+              </div>
+            )}
+            {step===4&&itin&&(
+              <div className="plan-card fade-in">
+                {done?(
+                  <div style={{textAlign:'center',padding:'2rem 0'}}>
+                    <div style={{fontSize:'3rem',marginBottom:'1rem'}}>🎉</div>
+                    <h2>Trip Package Confirmed!</h2>
+                    <p style={{color:'var(--text3)',margin:'1rem 0 1.5rem'}}>Your {days}-day luxury journey to {dest.name} has been saved. View in My Bookings → Travel Packages.</p>
+                    <div className="conf-badge" style={{display:'inline-flex',margin:'0 auto'}}>✓ Package Saved via POST /api/packages</div>
+                  </div>
+                ):(
+                  <>
+                    <h2>Your {days}-Day {dest.name} Itinerary</h2>
+                    <div className="itin-sum">
+                      <div className="sum-card"><div className="sum-lbl">✈️ Flight</div><div className="sum-val">{flight.al}</div></div>
+                      <div className="sum-card"><div className="sum-lbl">🚗 Transport</div><div className="sum-val">{vehicle.name}</div></div>
+                      <div className="sum-card"><div className="sum-lbl">🏨 Hotel</div><div className="sum-val">{dest.hotels[0].name}</div></div>
+                      <div className="sum-card"><div className="sum-lbl">📅 Duration</div><div className="sum-val">{days} Days · {budget}</div></div>
+                    </div>
+                    <div className="itin-scroll">
+                      {itin.map(d=>(
+                        <div key={d.day} className="day-block">
+                          <div className="day-hdr">Day {d.day} — {dest.name}</div>
+                          <div className="t-row"><div className="t-time">8:00 AM</div><div className="t-txt"><strong>Morning:</strong> {d.morn}</div></div>
+                          <div className="t-row"><div className="t-time">12:30 PM</div><div className="t-txt"><strong>Lunch at:</strong> {d.lunch}</div></div>
+                          <div className="t-row"><div className="t-time">2:00 PM</div><div className="t-txt"><strong>Afternoon:</strong> {d.aft}</div></div>
+                          <div className="t-row"><div className="t-time">5:00 PM</div><div className="t-txt"><strong>Café Break:</strong> {d.cafe}</div></div>
+                          <div className="t-row"><div className="t-time">7:00 PM</div><div className="t-txt"><strong>Evening:</strong> {d.eve}</div></div>
+                        </div>
+                      ))}
+                    </div>
+                    <div className="cost-table">
+                      <div style={{fontWeight:700,marginBottom:'.5rem',color:'var(--text)'}}>💰 Trip Cost Summary</div>
+                      <div className="cost-row"><span>✈️ {flight.al}</span><span>${flight.price.toLocaleString()}</span></div>
+                      <div className="cost-row"><span>🏨 Hotel ({days} nights × ${dest.hotels[0].price})</span><span>${hCost.toLocaleString()}</span></div>
+                      <div className="cost-row"><span>🚗 {vehicle.name} ({days} days × ${vehicle.price})</span><span>${vCost.toLocaleString()}</span></div>
+                      <div className="cost-row"><span>Total Estimated</span><span>${total.toLocaleString()}</span></div>
+                    </div>
+                    <div className="pnav">
+                      <button className="btn btn-outline" onClick={()=>setStep(3)}>← Modify</button>
+                      <button className="btn btn-gold" onClick={bookTrip} disabled={saving}>
+                        {saving?<><span className="spinner" style={{width:14,height:14,borderWidth:2,margin:0}}/> Saving to API…</>:'Book Complete Trip 🎉'}
+                      </button>
+                    </div>
+                  </>
+                )}
+              </div>
+            )}
+          </div>
+        </div>
+      </section>
+    </div>
+  );
+}
+
+function VaultPage({showToast}){
+  const [mems,setMems]=useState([
+    {id:'m1',loc:'Santorini, Greece',date:'2024-06-15',text:"Watched the most spectacular sunset from Oia. The sky turned every shade of gold, rose and violet at once. The cicadas, the sea breeze, the cold Assyrtiko wine — some moments are too perfect to be real."},
+    {id:'m2',loc:'Kyoto, Japan',date:'2024-04-05',text:"Cherry blossoms on the Philosopher's Walk. The petals fell like pink snow onto the canal. A monk passed without looking up. I understood something about impermanence I'd been reading about for years."}
+  ]);
+  const [showForm,setShowForm]=useState(false);
+  const [form,setForm]=useState({loc:'',date:'',text:''});
+  const [editId,setEditId]=useState(null);
+  const [editForm,setEditForm]=useState({});
+  const [saving,setSaving]=useState(false);
+
+  const addMem=async()=>{
+    if(!form.loc.trim()||!form.text.trim())return;
+    setSaving(true);
+    const res = await SimApi.createMemory(form);
+    setMems(p=>[{id:res.id,...form},...p]);
+    setForm({loc:'',date:'',text:''});setShowForm(false);setSaving(false);
+    showToast('Memory saved to vault ✨','success');
+  };
+
+  const deleteMem=async(id)=>{
+    await SimApi.deleteMemory(id);
+    setMems(p=>p.filter(m=>m.id!==id));
+    showToast('Memory deleted','error');
+  };
+
+  const startEdit=mem=>{setEditId(mem.id);setEditForm({loc:mem.loc,date:mem.date,text:mem.text});};
+
+  const saveEdit=async()=>{
+    setSaving(true);
+    await SimApi.updateMemory(editId,editForm);
+    setMems(p=>p.map(m=>m.id===editId?{...m,...editForm}:m));
+    setEditId(null);setSaving(false);
+    showToast('Memory updated','success');
+  };
+
+  const cancelEdit=()=>setEditId(null);
+
+  const exportVault=()=>{
+    SimApi.exportVault(mems);
+    showToast('Vault exported! Check your downloads.','info');
+  };
+
+  return(
+    <div className="page">
+      <section className="section">
+        <div className="container">
+          <div className="vault-header">
+            <div>
+              <div className="sec-tag">🗝️ MEMORY VAULT</div>
+              <h2 className="sec-title" style={{marginBottom:'.3rem'}}>Your Travel Memories</h2>
+              <p style={{color:'var(--text3)',fontSize:'.88rem'}}>{mems.length} memories · GET /api/vault</p>
+            </div>
+            <div style={{display:'flex',gap:'.7rem',flexWrap:'wrap',alignItems:'center'}}>
+              <button className="btn btn-outline" onClick={exportVault}>📥 Download Vault</button>
+              <button className="btn btn-primary" onClick={()=>setShowForm(!showForm)}>{showForm?'✕ Cancel':'+ Add Memory'}</button>
+            </div>
+          </div>
+          {showForm&&(
+            <div className="add-mem-form">
+              <h3>✍️ New Memory <span style={{fontSize:'.75rem',fontWeight:400,color:'var(--text3)'}}>· POST /api/vault</span></h3>
+              <div className="form3">
+                <div><label style={{display:'block',fontSize:'.78rem',fontWeight:700,color:'var(--text2)',marginBottom:'.4rem'}}>📍 Location</label><input className="vault-input" placeholder="e.g. Bali, Indonesia" value={form.loc} onChange={e=>setForm({...form,loc:e.target.value})}/></div>
+                <div><label style={{display:'block',fontSize:'.78rem',fontWeight:700,color:'var(--text2)',marginBottom:'.4rem'}}>📅 Date</label><input type="date" className="vault-input" value={form.date} onChange={e=>setForm({...form,date:e.target.value})}/></div>
+              </div>
+              <textarea className="vault-textarea" placeholder="Write your travel memory here…" value={form.text} onChange={e=>setForm({...form,text:e.target.value})}/>
+              <button className="btn btn-primary" onClick={addMem} disabled={saving}>
+                {saving?<><span className="spinner" style={{width:14,height:14,borderWidth:2,margin:0}}/> Saving…</>:'Save Memory 💾'}
+              </button>
+            </div>
+          )}
+          {mems.length===0?(
+            <div className="empty-vault">
+              <div className="empty-vault-icon">🗝️</div>
+              <p>Your vault is empty. Start adding travel memories!</p>
+            </div>
+          ):(
+            <div className="mem-grid">
+              {mems.map(m=>(
+                <div key={m.id} className="mem-card fade-in">
+                  {editId===m.id?(
+                    <>
+                      <div style={{fontSize:'.68rem',color:'var(--text3)',marginBottom:'.5rem'}}>PUT /api/vault/{m.id}</div>
+                      <div className="form3" style={{marginBottom:'.7rem'}}>
+                        <div><label style={{display:'block',fontSize:'.75rem',fontWeight:700,color:'var(--text3)',marginBottom:'.3rem'}}>Location</label><input className="vault-input" style={{fontSize:'.82rem'}} value={editForm.loc} onChange={e=>setEditForm({...editForm,loc:e.target.value})}/></div>
+                        <div><label style={{display:'block',fontSize:'.75rem',fontWeight:700,color:'var(--text3)',marginBottom:'.3rem'}}>Date</label><input type="date" className="vault-input" style={{fontSize:'.82rem'}} value={editForm.date} onChange={e=>setEditForm({...editForm,date:e.target.value})}/></div>
+                      </div>
+                      <textarea className="vault-textarea" style={{fontSize:'.82rem',minHeight:70}} value={editForm.text} onChange={e=>setEditForm({...editForm,text:e.target.value})}/>
+                      <div className="mem-actions">
+                        <button className="mem-btn" onClick={saveEdit} disabled={saving} style={{background:'var(--p1)',color:'#fff',borderColor:'var(--p1)'}}>
+                          {saving?'Saving…':'Save'}
+                        </button>
+                        <button className="mem-btn" onClick={cancelEdit}>Cancel</button>
+                      </div>
+                    </>
+                  ):(
+                    <>
+                      <div className="mem-loc">📍 {m.loc}</div>
+                      <div className="mem-date">{m.date?new Date(m.date+'T00:00:00').toLocaleDateString('en-US',{year:'numeric',month:'long',day:'numeric'}):''}</div>
+                      <div className="mem-text">{m.text}</div>
+                      <div className="mem-actions">
+                        <button className="mem-btn" onClick={()=>startEdit(m)}>✏️ Edit</button>
+                        <button className="mem-btn del" onClick={()=>deleteMem(m.id)}>🗑️ Delete</button>
+                      </div>
+                    </>
+                  )}
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+      </section>
+    </div>
+  );
+}
+
+/* ══════════════════════════════ APP ═══════════════════════════════════════ */
+function App(){
+  const [user,setUser]=useState(null);
+  const [token,setToken]=useState(null);
+  const [page,setPage]=useState('Home');
+  const [theme,setTheme]=useState('light');
+  const [selDest,setSelDest]=useState(null);
+  const [bookings,setBookings]=useState([]);
+  const [packages,setPackages]=useState([]);
+  const [sq,setSq]=useState('');
+  const [mobOpen,setMobOpen]=useState(false);
+  const {toasts,show:showToast} = useToast();
+
+  useEffect(()=>{document.documentElement.setAttribute('data-theme',theme);},[theme]);
+
+  const nav=p=>{setPage(p);setMobOpen(false);window.scrollTo(0,0);};
+
+  const handleLogin=(username,tok)=>{
+    setUser(username);
+    setToken(tok);
+    showToast(`Welcome back, ${username}! 🎉`,'success');
+  };
+
+  const handleLogout=()=>{
+    JwtSim.clearToken();
+    setUser(null);setToken(null);
+    setBookings([]);setPackages([]);
+    showToast('Logged out successfully','info');
+  };
+
+  const addBooking=b=>setBookings(p=>[b,...p]);
+  const addPackage=pkg=>setPackages(p=>[pkg,...p]);
+
+  if(!user) return(
+    <>
+      <Toasts toasts={toasts}/>
+      <LoginPage onLogin={handleLogin}/>
+    </>
+  );
+
+  return(
+    <>
+      <Navbar user={user} token={token} page={page} setPage={nav} theme={theme} toggleTheme={()=>setTheme(t=>t==='dark'?'light':'dark')} onLogout={handleLogout} mobOpen={mobOpen} setMobOpen={setMobOpen}/>
+      {page==='Home'&&<HomePage setPage={nav} setSelDest={setSelDest} sq={sq} setSq={setSq}/>}
+      {page==='Destinations'&&<DestPage setPage={nav} setSelDest={setSelDest}/>}
+      {page==='Detail'&&selDest&&<DetailPage dest={selDest} setPage={nav} addBooking={addBooking} showToast={showToast}/>}
+      {page==='My Bookings'&&<BookingsPage bookings={bookings} packages={packages} setPage={nav}/>}
+      {page==='Guides'&&<GuidesPage showToast={showToast}/>}
+      {page==='Trip Planner'&&<PlannerPage addPackage={addPackage} showToast={showToast}/>}
+      {page==='Memory Vault'&&<VaultPage showToast={showToast}/>}
+      <ApiBanner/>
+      <ApiLog/>
+      <Toasts toasts={toasts}/>
+    </>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById('root')).render(<App/>);
+</script>
+</body>
+</html>
